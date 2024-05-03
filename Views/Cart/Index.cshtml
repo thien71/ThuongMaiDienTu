@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ThuongMaiDienTu.Models.tb_Cart>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tb_Customer.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tb_Product.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <th>
+            @Html.DisplayFor(modelItem => item.Image)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tb_Customer.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tb_Product.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.CartID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.CartID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CartID })
+        </td>
+    </tr>
+}
+
+</table>

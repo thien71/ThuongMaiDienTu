@@ -1,0 +1,1292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="dbThuongMaiDienTuModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tb_Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="CustomerID" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_Brand">
+          <Key>
+            <PropertyRef Name="BrandID" />
+          </Key>
+          <Property Name="BrandID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Avatar" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="tb_Cart">
+          <Key>
+            <PropertyRef Name="CartID" />
+          </Key>
+          <Property Name="CartID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="Image" Type="nvarchar" MaxLength="200" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+          <Property Name="DayOfBirth" Type="datetime" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Avatar" Type="nvarchar" MaxLength="200" />
+          <Property Name="RoleID" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_ListImage">
+          <Key>
+            <PropertyRef Name="ImageID" />
+          </Key>
+          <Property Name="ImageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SRC" Type="nvarchar" MaxLength="250" />
+          <Property Name="ProductID" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="DeliveredDate" Type="datetime" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="ShopID" Type="int" />
+          <Property Name="Discount" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetailID" />
+          </Key>
+          <Property Name="OrderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tb_Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Image" Type="nvarchar" MaxLength="250" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PromotionPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Detail" Type="ntext" />
+          <Property Name="CateID" Type="int" />
+          <Property Name="ShopID" Type="int" Nullable="false" />
+          <Property Name="BrandID" Type="int" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tb_ProductCategory">
+          <Key>
+            <PropertyRef Name="CateID" />
+          </Key>
+          <Property Name="CateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="ParentID" Type="int" />
+          <Property Name="Image" Type="nvarchar" MaxLength="200" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tb_ProductComment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Detail" Type="nvarchar" MaxLength="500" />
+          <Property Name="Star" Type="int" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tb_Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tb_Shop">
+          <Key>
+            <PropertyRef Name="ShopID" />
+          </Key>
+          <Property Name="ShopID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Avatar" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="Detail" Type="ntext" />
+          <Property Name="OwnerID" Type="int" />
+        </EntityType>
+        <EntityType Name="tb_Supplier">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__tb_Addres__Custo__68487DD7">
+          <End Role="tb_Customer" Type="Self.tb_Customer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Address" Type="Self.tb_Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="tb_Address">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Cart__Custome__04E4BC85">
+          <End Role="tb_Customer" Type="Self.tb_Customer" Multiplicity="0..1" />
+          <End Role="tb_Cart" Type="Self.tb_Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="tb_Cart">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Cart__Product__05D8E0BE">
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Cart" Type="Self.tb_Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tb_Cart">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Custom__RoleI__656C112C">
+          <End Role="tb_Role" Type="Self.tb_Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Customer" Type="Self.tb_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="tb_Customer">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_ListIm__Produ__797309D9">
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_ListImage" Type="Self.tb_ListImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tb_ListImage">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Order__Discou__0A9D95DB">
+          <End Role="tb_Customer" Type="Self.tb_Customer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Order" Type="Self.tb_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="tb_Order">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Order__ShopID__0B91BA14">
+          <End Role="tb_Shop" Type="Self.tb_Shop" Multiplicity="0..1" />
+          <End Role="tb_Order" Type="Self.tb_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Shop">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="tb_Order">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_OrderD__Order__114A936A">
+          <End Role="tb_Order" Type="Self.tb_Order" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_OrderDetail" Type="Self.tb_OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="tb_OrderDetail">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_OrderD__Statu__10566F31">
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="0..1" />
+          <End Role="tb_OrderDetail" Type="Self.tb_OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tb_OrderDetail">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Produc__Brand__75A278F5">
+          <End Role="tb_Brand" Type="Self.tb_Brand" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Brand">
+              <PropertyRef Name="BrandID" />
+            </Principal>
+            <Dependent Role="tb_Product">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Produc__CateI__73BA3083">
+          <End Role="tb_ProductCategory" Type="Self.tb_ProductCategory" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_ProductCategory">
+              <PropertyRef Name="CateID" />
+            </Principal>
+            <Dependent Role="tb_Product">
+              <PropertyRef Name="CateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Produc__Custo__7F2BE32F">
+          <End Role="tb_Customer" Type="Self.tb_Customer" Multiplicity="1" />
+          <End Role="tb_ProductComment" Type="Self.tb_ProductComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="tb_ProductComment">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Produc__Produ__00200768">
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_ProductComment" Type="Self.tb_ProductComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tb_ProductComment">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Produc__ShopI__74AE54BC">
+          <End Role="tb_Shop" Type="Self.tb_Shop" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Shop">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="tb_Product">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Produc__Suppl__76969D2E">
+          <End Role="tb_Supplier" Type="Self.tb_Supplier" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Supplier">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="tb_Product">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Shop__OwnerID__6B24EA82">
+          <End Role="tb_Customer" Type="Self.tb_Customer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Shop" Type="Self.tb_Shop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="tb_Shop">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="procAddProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Image" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="ImageID" Type="int" Mode="In" />
+          <Parameter Name="Price" Type="decimal" Mode="In" />
+          <Parameter Name="PromotionPrice" Type="decimal" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Detail" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CateID" Type="int" Mode="In" />
+          <Parameter Name="ShopID" Type="int" Mode="In" />
+          <Parameter Name="BrandID" Type="int" Mode="In" />
+          <Parameter Name="SupplierID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="procAddProductComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Detail" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Star" Type="int" Mode="In" />
+          <Parameter Name="ProductID" Type="int" Mode="In" />
+          <Parameter Name="CustomerID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="procGetAllProductByShop" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ShopID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="procGetProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="procGetProductComment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="procRemoveProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="procUpdateProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductID" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Image" Type="varbinary(max)" Mode="In" />
+          <Parameter Name="Price" Type="decimal" Mode="In" />
+          <Parameter Name="PromotionPrice" Type="decimal" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Detail" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CateID" Type="int" Mode="In" />
+          <Parameter Name="ShopID" Type="int" Mode="In" />
+          <Parameter Name="BrandID" Type="int" Mode="In" />
+          <Parameter Name="SupplierID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="dbThuongMaiDienTuModelStoreContainer">
+          <EntitySet Name="tb_Address" EntityType="Self.tb_Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Brand" EntityType="Self.tb_Brand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Cart" EntityType="Self.tb_Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Customer" EntityType="Self.tb_Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_ListImage" EntityType="Self.tb_ListImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Order" EntityType="Self.tb_Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_OrderDetail" EntityType="Self.tb_OrderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Product" EntityType="Self.tb_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_ProductCategory" EntityType="Self.tb_ProductCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_ProductComment" EntityType="Self.tb_ProductComment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Role" EntityType="Self.tb_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Shop" EntityType="Self.tb_Shop" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_Supplier" EntityType="Self.tb_Supplier" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tb_Addres__Custo__68487DD7" Association="Self.FK__tb_Addres__Custo__68487DD7">
+            <End Role="tb_Customer" EntitySet="tb_Customer" />
+            <End Role="tb_Address" EntitySet="tb_Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Cart__Custome__04E4BC85" Association="Self.FK__tb_Cart__Custome__04E4BC85">
+            <End Role="tb_Customer" EntitySet="tb_Customer" />
+            <End Role="tb_Cart" EntitySet="tb_Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Cart__Product__05D8E0BE" Association="Self.FK__tb_Cart__Product__05D8E0BE">
+            <End Role="tb_Product" EntitySet="tb_Product" />
+            <End Role="tb_Cart" EntitySet="tb_Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Custom__RoleI__656C112C" Association="Self.FK__tb_Custom__RoleI__656C112C">
+            <End Role="tb_Role" EntitySet="tb_Role" />
+            <End Role="tb_Customer" EntitySet="tb_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_ListIm__Produ__797309D9" Association="Self.FK__tb_ListIm__Produ__797309D9">
+            <End Role="tb_Product" EntitySet="tb_Product" />
+            <End Role="tb_ListImage" EntitySet="tb_ListImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Order__Discou__0A9D95DB" Association="Self.FK__tb_Order__Discou__0A9D95DB">
+            <End Role="tb_Customer" EntitySet="tb_Customer" />
+            <End Role="tb_Order" EntitySet="tb_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Order__ShopID__0B91BA14" Association="Self.FK__tb_Order__ShopID__0B91BA14">
+            <End Role="tb_Shop" EntitySet="tb_Shop" />
+            <End Role="tb_Order" EntitySet="tb_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_OrderD__Order__114A936A" Association="Self.FK__tb_OrderD__Order__114A936A">
+            <End Role="tb_Order" EntitySet="tb_Order" />
+            <End Role="tb_OrderDetail" EntitySet="tb_OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_OrderD__Statu__10566F31" Association="Self.FK__tb_OrderD__Statu__10566F31">
+            <End Role="tb_Product" EntitySet="tb_Product" />
+            <End Role="tb_OrderDetail" EntitySet="tb_OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Produc__Brand__75A278F5" Association="Self.FK__tb_Produc__Brand__75A278F5">
+            <End Role="tb_Brand" EntitySet="tb_Brand" />
+            <End Role="tb_Product" EntitySet="tb_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Produc__CateI__73BA3083" Association="Self.FK__tb_Produc__CateI__73BA3083">
+            <End Role="tb_ProductCategory" EntitySet="tb_ProductCategory" />
+            <End Role="tb_Product" EntitySet="tb_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Produc__Custo__7F2BE32F" Association="Self.FK__tb_Produc__Custo__7F2BE32F">
+            <End Role="tb_Customer" EntitySet="tb_Customer" />
+            <End Role="tb_ProductComment" EntitySet="tb_ProductComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Produc__Produ__00200768" Association="Self.FK__tb_Produc__Produ__00200768">
+            <End Role="tb_Product" EntitySet="tb_Product" />
+            <End Role="tb_ProductComment" EntitySet="tb_ProductComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Produc__ShopI__74AE54BC" Association="Self.FK__tb_Produc__ShopI__74AE54BC">
+            <End Role="tb_Shop" EntitySet="tb_Shop" />
+            <End Role="tb_Product" EntitySet="tb_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Produc__Suppl__76969D2E" Association="Self.FK__tb_Produc__Suppl__76969D2E">
+            <End Role="tb_Supplier" EntitySet="tb_Supplier" />
+            <End Role="tb_Product" EntitySet="tb_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Shop__OwnerID__6B24EA82" Association="Self.FK__tb_Shop__OwnerID__6B24EA82">
+            <End Role="tb_Customer" EntitySet="tb_Customer" />
+            <End Role="tb_Shop" EntitySet="tb_Shop" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbThuongMaiDienTuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tb_Address">
+          <Key>
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="AddressID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerID" Type="Int32" />
+          <NavigationProperty Name="tb_Customer" Relationship="Self.FK__tb_Addres__Custo__68487DD7" FromRole="tb_Address" ToRole="tb_Customer" />
+        </EntityType>
+        <EntityType Name="tb_Brand">
+          <Key>
+            <PropertyRef Name="BrandID" />
+          </Key>
+          <Property Name="BrandID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Avatar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_Product" Relationship="Self.FK__tb_Produc__Brand__75A278F5" FromRole="tb_Brand" ToRole="tb_Product" />
+        </EntityType>
+        <EntityType Name="tb_Cart">
+          <Key>
+            <PropertyRef Name="CartID" />
+          </Key>
+          <Property Name="CartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="Image" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="tb_Customer" Relationship="Self.FK__tb_Cart__Custome__04E4BC85" FromRole="tb_Cart" ToRole="tb_Customer" />
+          <NavigationProperty Name="tb_Product" Relationship="Self.FK__tb_Cart__Product__05D8E0BE" FromRole="tb_Cart" ToRole="tb_Product" />
+        </EntityType>
+        <EntityType Name="tb_Customer">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="DayOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Avatar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="RoleID" Type="Int32" />
+          <NavigationProperty Name="tb_Address" Relationship="Self.FK__tb_Addres__Custo__68487DD7" FromRole="tb_Customer" ToRole="tb_Address" />
+          <NavigationProperty Name="tb_Cart" Relationship="Self.FK__tb_Cart__Custome__04E4BC85" FromRole="tb_Customer" ToRole="tb_Cart" />
+          <NavigationProperty Name="tb_Role" Relationship="Self.FK__tb_Custom__RoleI__656C112C" FromRole="tb_Customer" ToRole="tb_Role" />
+          <NavigationProperty Name="tb_Order" Relationship="Self.FK__tb_Order__Discou__0A9D95DB" FromRole="tb_Customer" ToRole="tb_Order" />
+          <NavigationProperty Name="tb_ProductComment" Relationship="Self.FK__tb_Produc__Custo__7F2BE32F" FromRole="tb_Customer" ToRole="tb_ProductComment" />
+          <NavigationProperty Name="tb_Shop" Relationship="Self.FK__tb_Shop__OwnerID__6B24EA82" FromRole="tb_Customer" ToRole="tb_Shop" />
+        </EntityType>
+        <EntityType Name="tb_ListImage">
+          <Key>
+            <PropertyRef Name="ImageID" />
+          </Key>
+          <Property Name="ImageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SRC" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ProductID" Type="Int32" />
+          <NavigationProperty Name="tb_Product" Relationship="Self.FK__tb_ListIm__Produ__797309D9" FromRole="tb_ListImage" ToRole="tb_Product" />
+        </EntityType>
+        <EntityType Name="tb_Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DeliveredDate" Type="DateTime" Precision="3" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="ShopID" Type="Int32" />
+          <Property Name="Discount" Type="Int32" />
+          <NavigationProperty Name="tb_Customer" Relationship="Self.FK__tb_Order__Discou__0A9D95DB" FromRole="tb_Order" ToRole="tb_Customer" />
+          <NavigationProperty Name="tb_Shop" Relationship="Self.FK__tb_Order__ShopID__0B91BA14" FromRole="tb_Order" ToRole="tb_Shop" />
+          <NavigationProperty Name="tb_OrderDetail" Relationship="Self.FK__tb_OrderD__Order__114A936A" FromRole="tb_Order" ToRole="tb_OrderDetail" />
+        </EntityType>
+        <EntityType Name="tb_OrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetailID" />
+          </Key>
+          <Property Name="OrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_Order" Relationship="Self.FK__tb_OrderD__Order__114A936A" FromRole="tb_OrderDetail" ToRole="tb_Order" />
+          <NavigationProperty Name="tb_Product" Relationship="Self.FK__tb_OrderD__Statu__10566F31" FromRole="tb_OrderDetail" ToRole="tb_Product" />
+        </EntityType>
+        <EntityType Name="tb_Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PromotionPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CateID" Type="Int32" />
+          <Property Name="ShopID" Type="Int32" Nullable="false" />
+          <Property Name="BrandID" Type="Int32" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tb_Brand" Relationship="Self.FK__tb_Produc__Brand__75A278F5" FromRole="tb_Product" ToRole="tb_Brand" />
+          <NavigationProperty Name="tb_Cart" Relationship="Self.FK__tb_Cart__Product__05D8E0BE" FromRole="tb_Product" ToRole="tb_Cart" />
+          <NavigationProperty Name="tb_ListImage" Relationship="Self.FK__tb_ListIm__Produ__797309D9" FromRole="tb_Product" ToRole="tb_ListImage" />
+          <NavigationProperty Name="tb_OrderDetail" Relationship="Self.FK__tb_OrderD__Statu__10566F31" FromRole="tb_Product" ToRole="tb_OrderDetail" />
+          <NavigationProperty Name="tb_ProductCategory" Relationship="Self.FK__tb_Produc__CateI__73BA3083" FromRole="tb_Product" ToRole="tb_ProductCategory" />
+          <NavigationProperty Name="tb_ProductComment" Relationship="Self.FK__tb_Produc__Produ__00200768" FromRole="tb_Product" ToRole="tb_ProductComment" />
+          <NavigationProperty Name="tb_Shop" Relationship="Self.FK__tb_Produc__ShopI__74AE54BC" FromRole="tb_Product" ToRole="tb_Shop" />
+          <NavigationProperty Name="tb_Supplier" Relationship="Self.FK__tb_Produc__Suppl__76969D2E" FromRole="tb_Product" ToRole="tb_Supplier" />
+        </EntityType>
+        <EntityType Name="tb_ProductCategory">
+          <Key>
+            <PropertyRef Name="CateID" />
+          </Key>
+          <Property Name="CateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ParentID" Type="Int32" />
+          <Property Name="Image" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tb_Product" Relationship="Self.FK__tb_Produc__CateI__73BA3083" FromRole="tb_ProductCategory" ToRole="tb_Product" />
+        </EntityType>
+        <EntityType Name="tb_ProductComment">
+          <Key>
+            <PropertyRef Name="CommentID" />
+          </Key>
+          <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Detail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Star" Type="Int32" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="tb_Customer" Relationship="Self.FK__tb_Produc__Custo__7F2BE32F" FromRole="tb_ProductComment" ToRole="tb_Customer" />
+          <NavigationProperty Name="tb_Product" Relationship="Self.FK__tb_Produc__Produ__00200768" FromRole="tb_ProductComment" ToRole="tb_Product" />
+        </EntityType>
+        <EntityType Name="tb_Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_Customer" Relationship="Self.FK__tb_Custom__RoleI__656C112C" FromRole="tb_Role" ToRole="tb_Customer" />
+        </EntityType>
+        <EntityType Name="tb_Shop">
+          <Key>
+            <PropertyRef Name="ShopID" />
+          </Key>
+          <Property Name="ShopID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Avatar" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OwnerID" Type="Int32" />
+          <NavigationProperty Name="tb_Customer" Relationship="Self.FK__tb_Shop__OwnerID__6B24EA82" FromRole="tb_Shop" ToRole="tb_Customer" />
+          <NavigationProperty Name="tb_Order" Relationship="Self.FK__tb_Order__ShopID__0B91BA14" FromRole="tb_Shop" ToRole="tb_Order" />
+          <NavigationProperty Name="tb_Product" Relationship="Self.FK__tb_Produc__ShopI__74AE54BC" FromRole="tb_Shop" ToRole="tb_Product" />
+        </EntityType>
+        <EntityType Name="tb_Supplier">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tb_Product" Relationship="Self.FK__tb_Produc__Suppl__76969D2E" FromRole="tb_Supplier" ToRole="tb_Product" />
+        </EntityType>
+        <Association Name="FK__tb_Addres__Custo__68487DD7">
+          <End Role="tb_Customer" Type="Self.tb_Customer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Address" Type="Self.tb_Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="tb_Address">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Produc__Brand__75A278F5">
+          <End Role="tb_Brand" Type="Self.tb_Brand" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Brand">
+              <PropertyRef Name="BrandID" />
+            </Principal>
+            <Dependent Role="tb_Product">
+              <PropertyRef Name="BrandID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Cart__Custome__04E4BC85">
+          <End Role="tb_Customer" Type="Self.tb_Customer" Multiplicity="0..1" />
+          <End Role="tb_Cart" Type="Self.tb_Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="tb_Cart">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Cart__Product__05D8E0BE">
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Cart" Type="Self.tb_Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tb_Cart">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Custom__RoleI__656C112C">
+          <End Role="tb_Role" Type="Self.tb_Role" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Customer" Type="Self.tb_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="tb_Customer">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Order__Discou__0A9D95DB">
+          <End Role="tb_Customer" Type="Self.tb_Customer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Order" Type="Self.tb_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="tb_Order">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Produc__Custo__7F2BE32F">
+          <End Role="tb_Customer" Type="Self.tb_Customer" Multiplicity="1" />
+          <End Role="tb_ProductComment" Type="Self.tb_ProductComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="tb_ProductComment">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Shop__OwnerID__6B24EA82">
+          <End Role="tb_Customer" Type="Self.tb_Customer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Shop" Type="Self.tb_Shop" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="tb_Shop">
+              <PropertyRef Name="OwnerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_ListIm__Produ__797309D9">
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_ListImage" Type="Self.tb_ListImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tb_ListImage">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Order__ShopID__0B91BA14">
+          <End Role="tb_Shop" Type="Self.tb_Shop" Multiplicity="0..1" />
+          <End Role="tb_Order" Type="Self.tb_Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Shop">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="tb_Order">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_OrderD__Order__114A936A">
+          <End Role="tb_Order" Type="Self.tb_Order" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_OrderDetail" Type="Self.tb_OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Order">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="tb_OrderDetail">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_OrderD__Statu__10566F31">
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="0..1" />
+          <End Role="tb_OrderDetail" Type="Self.tb_OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tb_OrderDetail">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Produc__CateI__73BA3083">
+          <End Role="tb_ProductCategory" Type="Self.tb_ProductCategory" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_ProductCategory">
+              <PropertyRef Name="CateID" />
+            </Principal>
+            <Dependent Role="tb_Product">
+              <PropertyRef Name="CateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Produc__Produ__00200768">
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_ProductComment" Type="Self.tb_ProductComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="tb_ProductComment">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Produc__ShopI__74AE54BC">
+          <End Role="tb_Shop" Type="Self.tb_Shop" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Shop">
+              <PropertyRef Name="ShopID" />
+            </Principal>
+            <Dependent Role="tb_Product">
+              <PropertyRef Name="ShopID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tb_Produc__Suppl__76969D2E">
+          <End Role="tb_Supplier" Type="Self.tb_Supplier" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tb_Product" Type="Self.tb_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_Supplier">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="tb_Product">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbThuongMaiDienTuEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tb_Address" EntityType="Self.tb_Address" />
+          <EntitySet Name="tb_Brand" EntityType="Self.tb_Brand" />
+          <EntitySet Name="tb_Cart" EntityType="Self.tb_Cart" />
+          <EntitySet Name="tb_Customer" EntityType="Self.tb_Customer" />
+          <EntitySet Name="tb_ListImage" EntityType="Self.tb_ListImage" />
+          <EntitySet Name="tb_Order" EntityType="Self.tb_Order" />
+          <EntitySet Name="tb_OrderDetail" EntityType="Self.tb_OrderDetail" />
+          <EntitySet Name="tb_Product" EntityType="Self.tb_Product" />
+          <EntitySet Name="tb_ProductCategory" EntityType="Self.tb_ProductCategory" />
+          <EntitySet Name="tb_ProductComment" EntityType="Self.tb_ProductComment" />
+          <EntitySet Name="tb_Role" EntityType="Self.tb_Role" />
+          <EntitySet Name="tb_Shop" EntityType="Self.tb_Shop" />
+          <EntitySet Name="tb_Supplier" EntityType="Self.tb_Supplier" />
+          <AssociationSet Name="FK__tb_Addres__Custo__68487DD7" Association="Self.FK__tb_Addres__Custo__68487DD7">
+            <End Role="tb_Customer" EntitySet="tb_Customer" />
+            <End Role="tb_Address" EntitySet="tb_Address" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Produc__Brand__75A278F5" Association="Self.FK__tb_Produc__Brand__75A278F5">
+            <End Role="tb_Brand" EntitySet="tb_Brand" />
+            <End Role="tb_Product" EntitySet="tb_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Cart__Custome__04E4BC85" Association="Self.FK__tb_Cart__Custome__04E4BC85">
+            <End Role="tb_Customer" EntitySet="tb_Customer" />
+            <End Role="tb_Cart" EntitySet="tb_Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Cart__Product__05D8E0BE" Association="Self.FK__tb_Cart__Product__05D8E0BE">
+            <End Role="tb_Product" EntitySet="tb_Product" />
+            <End Role="tb_Cart" EntitySet="tb_Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Custom__RoleI__656C112C" Association="Self.FK__tb_Custom__RoleI__656C112C">
+            <End Role="tb_Role" EntitySet="tb_Role" />
+            <End Role="tb_Customer" EntitySet="tb_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Order__Discou__0A9D95DB" Association="Self.FK__tb_Order__Discou__0A9D95DB">
+            <End Role="tb_Customer" EntitySet="tb_Customer" />
+            <End Role="tb_Order" EntitySet="tb_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Produc__Custo__7F2BE32F" Association="Self.FK__tb_Produc__Custo__7F2BE32F">
+            <End Role="tb_Customer" EntitySet="tb_Customer" />
+            <End Role="tb_ProductComment" EntitySet="tb_ProductComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Shop__OwnerID__6B24EA82" Association="Self.FK__tb_Shop__OwnerID__6B24EA82">
+            <End Role="tb_Customer" EntitySet="tb_Customer" />
+            <End Role="tb_Shop" EntitySet="tb_Shop" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_ListIm__Produ__797309D9" Association="Self.FK__tb_ListIm__Produ__797309D9">
+            <End Role="tb_Product" EntitySet="tb_Product" />
+            <End Role="tb_ListImage" EntitySet="tb_ListImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Order__ShopID__0B91BA14" Association="Self.FK__tb_Order__ShopID__0B91BA14">
+            <End Role="tb_Shop" EntitySet="tb_Shop" />
+            <End Role="tb_Order" EntitySet="tb_Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_OrderD__Order__114A936A" Association="Self.FK__tb_OrderD__Order__114A936A">
+            <End Role="tb_Order" EntitySet="tb_Order" />
+            <End Role="tb_OrderDetail" EntitySet="tb_OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_OrderD__Statu__10566F31" Association="Self.FK__tb_OrderD__Statu__10566F31">
+            <End Role="tb_Product" EntitySet="tb_Product" />
+            <End Role="tb_OrderDetail" EntitySet="tb_OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Produc__CateI__73BA3083" Association="Self.FK__tb_Produc__CateI__73BA3083">
+            <End Role="tb_ProductCategory" EntitySet="tb_ProductCategory" />
+            <End Role="tb_Product" EntitySet="tb_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Produc__Produ__00200768" Association="Self.FK__tb_Produc__Produ__00200768">
+            <End Role="tb_Product" EntitySet="tb_Product" />
+            <End Role="tb_ProductComment" EntitySet="tb_ProductComment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Produc__ShopI__74AE54BC" Association="Self.FK__tb_Produc__ShopI__74AE54BC">
+            <End Role="tb_Shop" EntitySet="tb_Shop" />
+            <End Role="tb_Product" EntitySet="tb_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tb_Produc__Suppl__76969D2E" Association="Self.FK__tb_Produc__Suppl__76969D2E">
+            <End Role="tb_Supplier" EntitySet="tb_Supplier" />
+            <End Role="tb_Product" EntitySet="tb_Product" />
+          </AssociationSet>
+          <FunctionImport Name="procAddProduct">
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Image" Mode="In" Type="Binary" />
+            <Parameter Name="ImageID" Mode="In" Type="Int32" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+            <Parameter Name="PromotionPrice" Mode="In" Type="Decimal" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Detail" Mode="In" Type="String" />
+            <Parameter Name="CateID" Mode="In" Type="Int32" />
+            <Parameter Name="ShopID" Mode="In" Type="Int32" />
+            <Parameter Name="BrandID" Mode="In" Type="Int32" />
+            <Parameter Name="SupplierID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="procAddProductComment">
+            <Parameter Name="Detail" Mode="In" Type="String" />
+            <Parameter Name="Star" Mode="In" Type="Int32" />
+            <Parameter Name="ProductID" Mode="In" Type="Int32" />
+            <Parameter Name="CustomerID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="procGetAllProductByShop" ReturnType="Collection(dbThuongMaiDienTuModel.procGetAllProductByShop_Result)">
+            <Parameter Name="ShopID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="procGetProduct" ReturnType="Collection(dbThuongMaiDienTuModel.procGetProduct_Result)">
+            <Parameter Name="ProductID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="procGetProductComment" ReturnType="Collection(dbThuongMaiDienTuModel.procGetProductComment_Result)">
+            <Parameter Name="ProductID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="procRemoveProduct">
+            <Parameter Name="ProductID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="procUpdateProduct">
+            <Parameter Name="ProductID" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Image" Mode="In" Type="Binary" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+            <Parameter Name="PromotionPrice" Mode="In" Type="Decimal" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Detail" Mode="In" Type="String" />
+            <Parameter Name="CateID" Mode="In" Type="Int32" />
+            <Parameter Name="ShopID" Mode="In" Type="Int32" />
+            <Parameter Name="BrandID" Mode="In" Type="Int32" />
+            <Parameter Name="SupplierID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="procGetAllProductByShop_Result">
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Image" Nullable="true" MaxLength="250" />
+          <Property Type="Decimal" Name="Price" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="PromotionPrice" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Detail" Nullable="true" MaxLength="Max" />
+          <Property Type="Int32" Name="CateID" Nullable="true" />
+          <Property Type="Int32" Name="ShopID" Nullable="false" />
+          <Property Type="Int32" Name="BrandID" Nullable="true" />
+          <Property Type="Int32" Name="SupplierID" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="procGetProduct_Result">
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Image" Nullable="true" MaxLength="250" />
+          <Property Type="Decimal" Name="Price" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="PromotionPrice" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Detail" Nullable="true" MaxLength="Max" />
+          <Property Type="Int32" Name="CateID" Nullable="true" />
+          <Property Type="Int32" Name="ShopID" Nullable="false" />
+          <Property Type="Int32" Name="BrandID" Nullable="true" />
+          <Property Type="Int32" Name="SupplierID" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="procGetProductComment_Result">
+          <Property Type="Int32" Name="CommentID" Nullable="false" />
+          <Property Type="String" Name="Detail" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="Star" Nullable="true" />
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbThuongMaiDienTuModelStoreContainer" CdmEntityContainer="dbThuongMaiDienTuEntities">
+          <EntitySetMapping Name="tb_Address">
+            <EntityTypeMapping TypeName="dbThuongMaiDienTuModel.tb_Address">
+              <MappingFragment StoreEntitySet="tb_Address">
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Brand">
+            <EntityTypeMapping TypeName="dbThuongMaiDienTuModel.tb_Brand">
+              <MappingFragment StoreEntitySet="tb_Brand">
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Cart">
+            <EntityTypeMapping TypeName="dbThuongMaiDienTuModel.tb_Cart">
+              <MappingFragment StoreEntitySet="tb_Cart">
+                <ScalarProperty Name="CartID" ColumnName="CartID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Customer">
+            <EntityTypeMapping TypeName="dbThuongMaiDienTuModel.tb_Customer">
+              <MappingFragment StoreEntitySet="tb_Customer">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DayOfBirth" ColumnName="DayOfBirth" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ListImage">
+            <EntityTypeMapping TypeName="dbThuongMaiDienTuModel.tb_ListImage">
+              <MappingFragment StoreEntitySet="tb_ListImage">
+                <ScalarProperty Name="ImageID" ColumnName="ImageID" />
+                <ScalarProperty Name="SRC" ColumnName="SRC" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Order">
+            <EntityTypeMapping TypeName="dbThuongMaiDienTuModel.tb_Order">
+              <MappingFragment StoreEntitySet="tb_Order">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="DeliveredDate" ColumnName="DeliveredDate" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_OrderDetail">
+            <EntityTypeMapping TypeName="dbThuongMaiDienTuModel.tb_OrderDetail">
+              <MappingFragment StoreEntitySet="tb_OrderDetail">
+                <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Product">
+            <EntityTypeMapping TypeName="dbThuongMaiDienTuModel.tb_Product">
+              <MappingFragment StoreEntitySet="tb_Product">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PromotionPrice" ColumnName="PromotionPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="CateID" ColumnName="CateID" />
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ProductCategory">
+            <EntityTypeMapping TypeName="dbThuongMaiDienTuModel.tb_ProductCategory">
+              <MappingFragment StoreEntitySet="tb_ProductCategory">
+                <ScalarProperty Name="CateID" ColumnName="CateID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ProductComment">
+            <EntityTypeMapping TypeName="dbThuongMaiDienTuModel.tb_ProductComment">
+              <MappingFragment StoreEntitySet="tb_ProductComment">
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Star" ColumnName="Star" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Role">
+            <EntityTypeMapping TypeName="dbThuongMaiDienTuModel.tb_Role">
+              <MappingFragment StoreEntitySet="tb_Role">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Shop">
+            <EntityTypeMapping TypeName="dbThuongMaiDienTuModel.tb_Shop">
+              <MappingFragment StoreEntitySet="tb_Shop">
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_Supplier">
+            <EntityTypeMapping TypeName="dbThuongMaiDienTuModel.tb_Supplier">
+              <MappingFragment StoreEntitySet="tb_Supplier">
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="procAddProduct" FunctionName="dbThuongMaiDienTuModel.Store.procAddProduct" />
+          <FunctionImportMapping FunctionImportName="procAddProductComment" FunctionName="dbThuongMaiDienTuModel.Store.procAddProductComment" />
+          <FunctionImportMapping FunctionImportName="procGetAllProductByShop" FunctionName="dbThuongMaiDienTuModel.Store.procGetAllProductByShop">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbThuongMaiDienTuModel.procGetAllProductByShop_Result">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PromotionPrice" ColumnName="PromotionPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="CateID" ColumnName="CateID" />
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="procGetProduct" FunctionName="dbThuongMaiDienTuModel.Store.procGetProduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbThuongMaiDienTuModel.procGetProduct_Result">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PromotionPrice" ColumnName="PromotionPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="CateID" ColumnName="CateID" />
+                <ScalarProperty Name="ShopID" ColumnName="ShopID" />
+                <ScalarProperty Name="BrandID" ColumnName="BrandID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="procGetProductComment" FunctionName="dbThuongMaiDienTuModel.Store.procGetProductComment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbThuongMaiDienTuModel.procGetProductComment_Result">
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Star" ColumnName="Star" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="procRemoveProduct" FunctionName="dbThuongMaiDienTuModel.Store.procRemoveProduct" />
+          <FunctionImportMapping FunctionImportName="procUpdateProduct" FunctionName="dbThuongMaiDienTuModel.Store.procUpdateProduct" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

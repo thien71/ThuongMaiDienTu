@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<main class="container mt-4">
+    <div class="card">
+        <div class="row g-0">
+            <div class="col-md-8 p-3">
+                <div class="title">
+                    <div class="row">
+                        <div class="col"><h4><b>Shopping Cart</b></h4></div>
+                        <div class="col align-self-center text-end text-muted">3 items</div>
+                    </div>
+                </div>
+                <!-- Item list -->
+                <div class="border-top border-bottom">
+                    <div class="row align-items-center py-2">
+                        <div class="col-2"><img src="https://i.imgur.com/1GrakTl.jpg" class="img-fluid cart-img"></div>
+                        <div class="col">
+                            <div class="text-muted">Shirt</div>
+                            <div>Cotton T-shirt</div>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="me-2">-</a>
+                            <span class="border px-2">1</span>
+                            <a href="#" class="ms-2">+</a>
+                        </div>
+                        <div class="col text-end">€ 44.00 <span class="close">&#10005;</span></div>
+                    </div>
+                    <!-- Repeat rows for each item -->
+                </div>
+                <div class="mt-3"><a href="#">&leftarrow;</a><span class="text-muted"> Back to shop</span></div>
+            </div>
+            <div class="col-md-4 bg-light p-3">
+                <div><h5><b>Summary</b></h5></div>
+                <hr>
+                <div class="row mb-2">
+                    <div class="col">ITEMS 3</div>
+                    <div class="col text-end">€ 132.00</div>
+                </div>
+                <form>
+                    <p>SHIPPING</p>
+                    <select class="form-select mb-3">
+                        <option>Standard-Delivery - €5.00</option>
+                    </select>
+                    <p>GIVE CODE</p>
+                    <input type="text" id="code" class="form-control mb-3" placeholder="Enter your code">
+                </form>
+                <div class="row border-top pt-2">
+                    <div class="col">TOTAL PRICE</div>
+                    <div class="col text-end">€ 137.00</div>
+                </div>
+                <button class="btn btn-primary mt-2 btn-outline-primary">CHECKOUT</button>
+            </div>
+        </div>
+    </div>
+</main>
