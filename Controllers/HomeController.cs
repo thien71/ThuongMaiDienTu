@@ -18,6 +18,8 @@ namespace ThuongMaiDienTu.Controllers
             ViewBag.IsFixedHeader = true;
             ViewBag.Products = db.tb_Product.Include(t => t.tb_Brand).Include(t => t.tb_ProductCategory).Include(t => t.tb_Shop).Include(t => t.tb_Supplier).ToList();
             ViewBag.Categories = db.tb_ProductCategory.ToList();
+            ViewBag.Brands = db.tb_Brand.ToList();
+
             return View();
         }
     }

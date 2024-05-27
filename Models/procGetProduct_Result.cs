@@ -19,6 +19,7 @@ namespace ThuongMaiDienTu.Models
         public Nullable<decimal> Price { get; set; }
         public Nullable<decimal> PromotionPrice { get; set; }
         public Nullable<int> Quantity { get; set; }
+        public Nullable<int> QuantitySold { get; set; }
         public string Description { get; set; }
         public string Detail { get; set; }
         public Nullable<int> CateID { get; set; }

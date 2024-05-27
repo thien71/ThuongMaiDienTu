@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Web;
 using System.Web.Mvc;
 using ThuongMaiDienTu.Models;
@@ -18,27 +19,49 @@ namespace ThuongMaiDienTu.Controllers
         public ActionResult Index()
         {
             ViewBag.Products = db.tb_Product.Include(t => t.tb_Brand).Include(t => t.tb_ProductCategory).Include(t => t.tb_Shop).Include(t => t.tb_Supplier).ToList();
-
             ViewBag.Categories = db.tb_ProductCategory.ToList();
+            ViewBag.Brands = db.tb_Brand.ToList();
 
             return View();
         }
 
-
-        // GET: Product/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
+            using (var db = new dbThuongMaiDienTuEntities())
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                // Load thông tin sản phẩm, cửa hàng và danh sách hình ảnh của sản phẩm
+                var product = db.tb_Product.Include(p => p.tb_ListImage).FirstOrDefault(p => p.ProductID == id);
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Load thông tin cửa hàng của sản phẩm
+                var shop = db.tb_Shop.FirstOrDefault(s => s.ShopID == product.ShopID);
+                if (shop == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Đếm số lượng sản phẩm có ShopID tương ứng
+                var productCount = db.tb_Product.Count(p => p.ShopID == id);
+
+                // Load danh sách bình luận của sản phẩm
+                var comments = db.tb_ProductComment.Where(c => c.ProductID == id).ToList();
+
+                // Truyền thông tin sản phẩm, cửa hàng và danh sách bình luận vào view
+                ViewBag.Product = product;
+                ViewBag.Shop = shop;
+                ViewBag.Comments = comments;
+                ViewBag.ProductCount = productCount;
+                //ViewBag.JoinDate = shop.CreateDate; // Giả sử có trường JoinDate trong bảng tb_Shop
+                ViewBag.PhoneNumber = shop.Phone; // Giả sử có trường PhoneNumber trong bảng tb_Shop
+
+                return View();
             }
-            tb_Product tb_Product = db.tb_Product.Find(id);
-            if (tb_Product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tb_Product);
         }
+
+
 
         // GET: Product/Create
         public ActionResult Create()

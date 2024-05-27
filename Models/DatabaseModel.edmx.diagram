@@ -4,36 +4,36 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0ff30e7abc68457eb1a0fc54e54105cc" Name="Diagram1">
-        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Address" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Brand" Width="1.5" PointX="5.25" PointY="17.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Cart" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Customer" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_ListImage" Width="1.5" PointX="9.75" PointY="21.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Order" Width="1.5" PointX="7.5" PointY="14.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_OrderDetail" Width="1.5" PointX="9.75" PointY="17.625" IsExpanded="true" />
+      <Diagram DiagramId="e33ab0a0d19c4117af9680b4fd18605b" Name="Diagram1">
+        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Address" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Brand" Width="1.5" PointX="5.25" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Cart" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Customer" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_ListImage" Width="1.5" PointX="9.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Order" Width="1.5" PointX="7.5" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_OrderDetail" Width="1.5" PointX="9.75" PointY="17.875" IsExpanded="true" />
         <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Product" Width="1.5" PointX="7.5" PointY="20" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_ProductCategory" Width="1.5" PointX="5.25" PointY="25.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_ProductComment" Width="1.5" PointX="8.25" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Role" Width="1.5" PointX="0.75" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Shop" Width="1.5" PointX="5.25" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_ProductCategory" Width="1.5" PointX="5.25" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_ProductComment" Width="1.5" PointX="8.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Role" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Shop" Width="1.5" PointX="5.25" PointY="21" IsExpanded="true" />
         <EntityTypeShape EntityType="dbThuongMaiDienTuModel.tb_Supplier" Width="1.5" PointX="5.25" PointY="28.25" IsExpanded="true" />
         <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Addres__Custo__68487DD7" ManuallyRouted="false" />
-        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Produc__Brand__75A278F5" ManuallyRouted="false" />
-        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Cart__Custome__04E4BC85" ManuallyRouted="false" />
-        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Cart__Product__05D8E0BE" ManuallyRouted="false" />
+        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Produc__Brand__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Cart__Custome__05D8E0BE" ManuallyRouted="false" />
+        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Cart__Product__06CD04F7" ManuallyRouted="false" />
         <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Custom__RoleI__656C112C" ManuallyRouted="false" />
-        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Order__Discou__0A9D95DB" ManuallyRouted="false" />
-        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Produc__Custo__7F2BE32F" ManuallyRouted="false" />
+        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Order__Discou__0B91BA14" ManuallyRouted="false" />
+        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Produc__Custo__00200768" ManuallyRouted="false" />
         <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Shop__OwnerID__6B24EA82" ManuallyRouted="false" />
-        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_ListIm__Produ__797309D9" ManuallyRouted="false" />
-        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Order__ShopID__0B91BA14" ManuallyRouted="false" />
-        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_OrderD__Order__114A936A" ManuallyRouted="false" />
-        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_OrderD__Statu__10566F31" ManuallyRouted="false" />
-        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Produc__CateI__73BA3083" ManuallyRouted="false" />
-        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Produc__Produ__00200768" ManuallyRouted="false" />
-        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Produc__ShopI__74AE54BC" ManuallyRouted="false" />
-        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Produc__Suppl__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_ListIm__Produ__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Order__ShopID__0C85DE4D" ManuallyRouted="false" />
+        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_OrderD__Order__123EB7A3" ManuallyRouted="false" />
+        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_OrderD__Statu__114A936A" ManuallyRouted="false" />
+        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Produc__CateI__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Produc__Produ__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Produc__ShopI__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="dbThuongMaiDienTuModel.FK__tb_Produc__Suppl__778AC167" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
