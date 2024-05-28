@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing.Printing;
+using System.Dynamic;
 using System.Linq;
 using System.Net;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using ThuongMaiDienTu.Models;
 
 namespace ThuongMaiDienTu.Controllers
@@ -25,7 +28,7 @@ namespace ThuongMaiDienTu.Controllers
             return View();
         }
 
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, int page = 1, int pageSize = 5)
         {
             using (var db = new dbThuongMaiDienTuEntities())
             {
@@ -43,19 +46,63 @@ namespace ThuongMaiDienTu.Controllers
                     return HttpNotFound();
                 }
 
+                var shopID = product.ShopID;
                 // Đếm số lượng sản phẩm có ShopID tương ứng
-                var productCount = db.tb_Product.Count(p => p.ShopID == id);
+                var productCount = db.tb_Product.Count(p => p.ShopID == shopID);
 
                 // Load danh sách bình luận của sản phẩm
-                var comments = db.tb_ProductComment.Where(c => c.ProductID == id).ToList();
+                var commentsQuery = db.tb_ProductComment
+                            .Where(c => c.ProductID == id)
+                            .OrderByDescending(c => c.CreatedDate)
+                            .Select(c => new
+                            {
+                                c.Detail,
+                                c.Star,
+                                c.CreatedDate,
+                                CustomerName = c.tb_Customer.Name,
+                                CustomerAvatar = c.tb_Customer.Avatar
+                            });
+
+                
+                // Tính toán phân trang
+                var totalComments = commentsQuery.Count();
+                var comments = commentsQuery.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+                var expandoComments = comments.Select(c =>
+                {
+                    dynamic expando = new ExpandoObject();
+                    expando.Detail = c.Detail;
+                    expando.Star = c.Star;
+                    expando.CreatedDate = c.CreatedDate;
+                    expando.CustomerName = c.CustomerName;
+                    expando.CustomerAvatar = c.CustomerAvatar;
+                    return expando;
+                }).ToList();
+
+                // Load danh sách sản phẩm liên quan
+                var relatedProducts = db.tb_Product
+                                        .Where(p => p.CateID == product.CateID && p.ProductID != id)
+                                        .ToList();
+
+                // Xử lý mô tả và chi tiết sản phẩm
+                ////var descriptionSegments = product.Description?.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList() ?? new List<string>();
+                var detailSegments = product.Detail?.Split(new[] { '.' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).ToList() ?? new List<string>();
+
 
                 // Truyền thông tin sản phẩm, cửa hàng và danh sách bình luận vào view
                 ViewBag.Product = product;
                 ViewBag.Shop = shop;
-                ViewBag.Comments = comments;
+                ViewBag.Comments = expandoComments;
                 ViewBag.ProductCount = productCount;
-                //ViewBag.JoinDate = shop.CreateDate; // Giả sử có trường JoinDate trong bảng tb_Shop
-                ViewBag.PhoneNumber = shop.Phone; // Giả sử có trường PhoneNumber trong bảng tb_Shop
+                ViewBag.JoinDate = shop.CreatedDate; // Giả sử có trường JoinDate trong bảng tb_Shop
+                ViewBag.PhoneNumber = shop.Phone;
+
+                ViewBag.Page = page;
+                ViewBag.PageSize = pageSize;
+                ViewBag.TotalComments = totalComments;
+
+                ViewBag.RelatedProducts = relatedProducts;
+                ViewBag.DetailSegments = detailSegments;
 
                 return View();
             }

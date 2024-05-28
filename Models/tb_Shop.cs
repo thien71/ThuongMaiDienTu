@@ -30,6 +30,7 @@ namespace ThuongMaiDienTu.Models
         public string Description { get; set; }
         public string Detail { get; set; }
         public Nullable<int> OwnerID { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
     
         public virtual tb_Customer tb_Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

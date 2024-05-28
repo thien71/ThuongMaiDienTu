@@ -1,0 +1,98 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<main class="mt-0 bg-detail py-4 bg-white">
+    <div class="container bg-white">
+        <div class="row detail-shop shop-detail">
+            <div class="col-md-4 detail-shop-left">
+                <div class="detail-shop-avatar">
+                    <img src="~/images/@Url.Content(ViewBag.Shop.Avatar)" alt="@ViewBag.Shop.Name" class="product-img">
+
+                </div>
+                <div class="detail-shop-title">
+                    <h4>@ViewBag.Shop.Name</h4>
+                    <p>
+                        <a href="">
+                            <i class="fa-regular fa-message"></i>
+                            Chat ngay
+                        </a>
+                        <a href="">
+                            <i class="fa-regular fa-heart"></i>
+                            Yêu thích
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-8 detail-shop-right">
+                <div class="col-md-4 detail-shop-right-col">
+                    <p>
+                        <span>Sản phẩm</span>
+                        <span>@ViewBag.ProductCount</span>
+                    </p>
+                </div>
+                <div class="col-md-4 detail-shop-right-col">
+                    <p>
+                        <span>Tham gia</span>
+                        <span>@ViewBag.JoinDate.ToString("dd - MM - yyyy")</span>
+                    </p>
+                </div>
+                <div class="col-md-4 detail-shop-right-col">
+                    <p>
+                        <span>Liên hệ</span>
+                        <span>@ViewBag.PhoneNumber</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4 bg-white">
+        <div class="detail-product-other p-0">
+            <h3>Sản phẩm của cửa hàng</h3>
+
+            <div class="shop-cate">
+                <ul>
+                    <li><a href="@Url.Action("Detail", new { id = ViewBag.Shop.ShopID })" class="@(ViewBag.CateId == null ? "active" : "")">Tất cả sản phẩm</a></li>
+                   
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        <li>
+                            <a href="@Url.Action("Detail", new { id = ViewBag.Shop.ShopID, cateId = category.CateID })"
+                               class="@(ViewBag.CateId == category.CateID ? "active" : "")">
+                                @category.Name
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="product-cate-row">
+                @foreach (var product in ViewBag.Products)
+                {
+                    <a href="/Product/Details/@product.ProductID" class="product-cate-cover col-2-4">
+                        <span>-@product.PromotionPrice%</span>
+                        <div class="product-item">
+                            <div class="product-img">
+                                <img src="~/images/@product.Image" alt="@product.Name" />
+                            </div>
+                            <h4 class="product-title">@product.Name</h4>
+                            <p class="product-price">
+                                <span class="product-price-old">@string.Format("{0:N0}đ", product.Price)</span>
+                                <span class="product-price-new">@string.Format("{0:N0}đ", product.Price * (100 - product.PromotionPrice) / 100)</span>
+                            </p>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</main>

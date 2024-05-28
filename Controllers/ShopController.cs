@@ -21,6 +21,51 @@ namespace ThuongMaiDienTu.Controllers
             return View(tb_Shop.ToList());
         }
 
+        // Trong phương thức Detail của Controller
+        // Trong phương thức Detail của Controller
+        public ActionResult Detail(int id, int? cateId)
+        {
+            // Load thông tin cửa hàng
+            var shop = db.tb_Shop.FirstOrDefault(s => s.ShopID == id);
+            if (shop == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Lấy tất cả danh mục của cửa hàng
+            var allCategories = db.tb_ProductCategory
+                                  .Where(c => db.tb_Product.Any(p => p.ShopID == id && p.CateID == c.CateID))
+                                  .ToList();
+
+            // Lấy tất cả sản phẩm của cửa hàng hoặc lọc theo danh mục nếu cateId được cung cấp
+            var products = db.tb_Product.Where(p => p.ShopID == id && (!cateId.HasValue || p.CateID == cateId)).ToList();
+            if (!products.Any())
+            {
+                return HttpNotFound("Không có sản phẩm nào trong cửa hàng này.");
+            }
+
+            ViewBag.Shop = shop;
+            ViewBag.Products = products;
+            ViewBag.Categories = allCategories; // Gán danh sách tất cả danh mục vào ViewBag.Categories
+            ViewBag.JoinDate = shop.CreatedDate;
+            ViewBag.PhoneNumber = shop.Phone;
+            ViewBag.CateId = cateId; // Gán cateId để sử dụng trong view
+
+            return View();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
         // GET: Shop/Create
         public ActionResult Create()
         {

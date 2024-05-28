@@ -22,7 +22,14 @@
             <div class="col-md-7 detail-product-right">
                 <h1>@ViewBag.Product.Name</h1>
                 <div>
-                    <span class="detail-product-star mr-4"><b>3.2</b>★★★☆☆</span>
+                    <span class="detail-product-star mr-4">
+                        <b>4.5</b>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star-half-stroke"></i>
+                    </span>
                     <span class="detail-product-sold"><b class="">@ViewBag.Product.QuantitySold</b>  Đã bán</span>
                 </div>
                 <div class="my-3">
@@ -85,7 +92,7 @@
                             <i class="fa-regular fa-message"></i>
                             Chat ngay
                         </a>
-                        <a href="">
+                        <a href="/Shop/Detail/@ViewBag.Shop.ShopID">
                             <i class="fa-solid fa-shop"></i>
                             Xem shop
                         </a>
@@ -102,8 +109,7 @@
                 <div class="col-md-4 detail-shop-right-col">
                     <p>
                         <span>Tham gia</span>
-                        <span>7 tháng trước</span>
-                        @*<span>@ViewBag.CreateDate.ToString("dd MMM yyyy")</span>*@
+                        <span>@ViewBag.JoinDate.ToString("dd - MM - yyyy")</span>
                     </p>
                 </div>
                 <div class="col-md-4 detail-shop-right-col">
@@ -112,6 +118,129 @@
                         <span>@ViewBag.PhoneNumber</span>
                     </p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    @{
+        var product = ViewBag.Product;
+        var shop = ViewBag.Shop;
+        var comments = ViewBag.Comments;
+        var productCount = ViewBag.ProductCount;
+        var joinDate = ViewBag.JoinDate;
+        var phoneNumber = ViewBag.PhoneNumber;
+        int page = ViewBag.Page;
+        int pageSize = ViewBag.PageSize;
+        int totalComments = ViewBag.TotalComments;
+        int totalPages = (int)Math.Ceiling((double)totalComments / pageSize);
+        var relatedProducts = ViewBag.RelatedProducts;
+        var detailSegments = ViewBag.DetailSegments;
+    }
+
+    <div class="container mt-4 bg-white">
+        <div class="detail-description">
+            <h3>Mô tả sản phẩm</h3>
+            <p>
+                <span>@ViewBag.Product.Name</span>
+                @ViewBag.Product.Description
+            </p>
+        </div>
+    </div>
+
+    <div class="container mt-4 bg-white">
+        <div class="detail-detail">
+            <h3>Chi tiết sản phẩm</h3>
+            <div class="row">
+                @foreach (var segment in detailSegments)
+                {
+                    <div class="col-6">
+                        <p>
+                            <i class="fa-regular fa-circle"></i>
+                            @segment.
+                        </p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container mt-4 bg-white">
+        <div class="detail-review">
+            <h3>Đánh giá sản phẩm</h3>
+            <div class="detail-review-cover">
+                @if (totalComments > 0)
+                {
+                    foreach (var comment in comments)
+                    {
+                        <div class="row">
+                            <div class="col-1 detail-review-img">
+                                <img src="~/images/@comment.CustomerAvatar" />
+                            </div>
+                            <div class="col-11">
+                                <h5 class="">@comment.CustomerName</h5>
+                                <div class="">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        if (i <= comment.Star)
+                                        {
+                                            <i class="fa-solid fa-star"></i>
+                                        }
+                                        else if (i == comment.Star + 0.5)
+                                        {
+                                            <i class="fa-regular fa-star-half-stroke"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa-regular fa-star"></i>
+                                        }
+                                    }
+                                </div>
+                                <span>@comment.CreatedDate.ToString("dd/MM/yyyy")</span>
+                                <p>@comment.Detail</p>
+                            </div>
+                        </div>
+                    }
+                    <!-- Pagination -->
+                    <nav>
+                        <ul class="pagination">
+                            @for (int i = 1; i <= totalPages; i++)
+                            {
+                                <li class="page-item @(i == page ? "active" : "")">
+                                    <a class="page-link" href="@Url.Action("Details", new { id = product.ProductID, page = i })">@i</a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                }
+                else
+                {
+                    <p class="text-center">Không có đánh giá nào.</p>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4 bg-white">
+        <div class="detail-product-other">
+            <h3>Sản phẩm liên quan</h3>
+            <div class="product-cate-row">
+                @foreach (var relatedProduct in relatedProducts)
+                {
+                    <a href="@Url.Action("Details", new { id = relatedProduct.ProductID })" class="product-cate-cover col-2-4">
+                        <span>-@relatedProduct.PromotionPrice%</span>
+                        <div class="product-item">
+                            <div class="product-img">
+                                <img src="~/images/@relatedProduct.Image" alt="@relatedProduct.Name" />
+                            </div>
+                            <h4 class="product-title">@relatedProduct.Name</h4>
+                            <p class="product-price">
+                                <span class="product-price-old">@string.Format("{0:N0}đ", relatedProduct.Price)</span>
+                                <span class="product-price-new">@string.Format("{0:N0}đ", relatedProduct.Price * (100 - relatedProduct.PromotionPrice) / 100)</span>
+                            </p>
+                        </div>
+                    </a>
+                }
             </div>
         </div>
     </div>

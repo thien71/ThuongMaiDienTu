@@ -1,52 +1,8 @@
 ﻿@model IEnumerable<ThuongMaiDienTu.Models.tb_Shop>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Shop";
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Detail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tb_Customer.Username)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Detail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.tb_Customer.Username)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ShopID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ShopID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ShopID })
-        </td>
-    </tr>
-}
-
-</table>
