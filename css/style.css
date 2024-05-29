@@ -96,7 +96,7 @@ label {
 
 .header-right ul li {
     display: inline-block;
-    width: 19%;
+    width: 22%;
     font-size: 13px;
     letter-spacing: 1px;
 }
@@ -2790,6 +2790,53 @@ div#testimonials h4.m-title {
     color: black;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 100%;
+    max-width: 400px;
+}
+
+.close {
+    color: #aaa;
+    font-size: 32px;
+    font-weight: bold;
+    display: flex;
+    justify-content: flex-end;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+.modal select {
+    width: 100%;
+    padding: 6px;
+    margin: 12px 0;
+}
+
+.detail-delivery {
+    cursor: pointer;
+}
+
 .detail-quantity {
     color: black;
     display: flex;
@@ -3132,6 +3179,677 @@ div#testimonials h4.m-title {
             .shop-cate ul li a:hover {
                 color: rgba(8, 121, 201, 1);
             }
+
+.shop-signup-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 56px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .07);
+    background-color: #fff;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 52px;
+}
+
+.bg-f6 {
+    background-color: #f6f6f6;
+}
+
+.shop-signup-logo {
+
+}
+
+    .shop-signup-logo a {
+        /*color: rgba(8, 121, 201, 0.9);*/
+        font-size: 22px;
+    }
+
+.shop-signup-logo span{
+    font-size: 20px;
+    color: black;
+    margin-left: 32px;
+}
+
+.shop-signup-user {
+    padding: 4px 8px;
+    width: 120px;
+    max-width: 200px;
+}
+
+    .shop-signup-user img {
+        max-width: 32px;
+        max-height: 32px;
+        border-radius: 50%;
+        width: 100%;
+        border: 1px solid rgba(0,0,0,0.2);
+    }
+
+.shop-signup-user span{
+    margin-left: 8px;
+    font-size: 14px;
+}
+
+.shop-signup-main {
+    max-width: 1412px;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .12);
+    margin: 110px auto 54px;
+    background-color: #fff;
+    padding: 32px;
+}
+
+.shop-signup-enter {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+    .shop-signup-enter .form-group {
+        margin-bottom: 32px;
+    }
+
+    .shop-signup-enter .form-group:nth-child(2) {
+    }
+
+    .shop-signup-enter label {
+        color: black;
+        width: 120px;
+        letter-spacing: normal;
+        font-size: 14px;
+    }
+
+    .shop-signup-enter input {
+        outline: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-left: 16px;
+        padding: 6px 12px;
+        width: 300px;
+        font-size: 14px;
+        color: black;
+        letter-spacing: normal;
+    }
+
+    .shop-signup-enter span {
+        color: black;
+        font-size: 14px;
+        letter-spacing: normal;
+        margin-right: 32px;
+        margin-left: 16px;
+    }
+
+    .shop-signup-enter button {
+        outline: none;
+        border: none;
+        color: rgba(8, 121, 201, 0.9);
+        font-size: 12px;
+        background: none;
+
+    }
+
+        .shop-signup-enter .form-group button:hover {
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+.shop-signup-save {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0;
+}
+
+    .shop-signup-save button {
+        outline: none;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        color: white;
+        font-size: 16px;
+        background: rgba(8, 121, 201, 0.9);
+        padding: 4px 12px;
+        border-radius: 4px;
+    }
+
+
+
+
+
+/*Đăng kí đăng nhập*/
+
+.signup-header {
+    padding: 32px;
+    background-color: white;
+}
+
+    .signup-header h2 {
+        font-size: 28px;
+        color: rgba(8, 121, 201, 0.9);
+        margin: 0 160px;
+    }
+
+.signup-header span{
+    color:black;
+    font-size: 24px;
+    margin-left: 16px;
+}
+
+.signup-main {
+    position: relative;
+    padding: 100px 32px;
+    background-image: url(../images/background.png);
+    background-repeat: no-repeat;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+    .signup-main::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: brightness(0.6);
+        z-index: 1;
+    }
+
+    .signup-main * {
+        position: relative;
+        z-index: 2;
+    }
+
+.signup-main-cover {
+    padding: 32px;
+    background-color: white;
+    width: 400px;
+    margin-left: 60%;
+}
+
+
+    .signup-main-cover h3 {
+        font-size: 22px;
+        margin-bottom: 26px;
+    }
+
+.signup-main-cover form {
+     margin: 16px 0;
+}
+
+    .signup-main-cover form > div {
+        margin-bottom: 20px;
+    }
+
+    .signup-main-cover form input {
+        padding: 8px 12px;
+        width: 100%;
+        border: 1px solid rgba(8, 121, 201, 0.9);
+        outline: none;
+        border-radius: 4px;
+        font-size: 14px;
+        color: black;
+    }
+
+    .signup-main-cover form button {
+        cursor: pointer;
+        background-color: rgba(8, 121, 201, 0.9);
+        color: #fff;
+        text-transform: uppercase;
+        width: 100%;
+        border-radius: 4px;
+        padding: 6px 0;
+        outline: none;
+        border: none;
+    }
+
+.signup-other {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 -8px;
+}
+
+    .signup-other button {
+        cursor: pointer;
+        background-color: white;
+        color: black;
+        width: 100%;
+        padding: 6px 12px;
+        outline: none;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        margin: 0 8px;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .signup-other button:hover{
+            background-color: #f9f9f9;
+        }
+
+        .signup-other-fb {
+        }
+
+    .signup-other-gg {
+
+    }
+
+
+.signup-other img {
+    max-width: 20px;
+    max-height: 20px;
+    margin-right: 6px;
+}
+
+.signup-login {
+
+}
+
+    .signup-login a {
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+        font-size: 14px;
+        color: rgba(8, 121, 201, 0.6);
+        margin-top: 16px;
+    }
+
+    .signup-login a:hover {
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+        font-size: 14px;
+        color: rgba(8, 121, 201, 1);
+        margin-top: 16px;
+    }
+
+.login-forget {
+    margin-bottom: 16px;
+}
+
+    .login-forget a {
+        color: #05a;
+        font-size: 12px;
+        letter-spacing: normal;
+    }
+
+
+.login-check {
+
+}
+
+.login-check ul{
+    list-style: none;
+    font-size: 12px;
+}
+
+.avatar-img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 8px;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+
+.mr-100 {
+    margin-right: 100px;
+}
+
+ul.mr-100 .dropdown-menu,
+.shop-signup-user .dropdown-menu {
+    position: absolute;
+    left: 0;
+    background-color: #fff;
+    border: 1px solid rgba(8, 121, 201, 1);
+    border-radius: 5px;
+    padding: 0px 12px;
+    width: 100%;
+    letter-spacing: normal;
+}
+
+    .shop-signup-user .dropdown-menu {
+        top: 36px;
+        left: 12px;
+    }
+
+    ul.mr-100 .dropdown-menu li,
+    .shop-signup-user .dropdown-menu li {
+        list-style: none;
+        margin: 5px 0;
+        font-size: 12px;
+        width: 100%;
+    }
+
+        ul.mr-100 .dropdown-menu li a,
+        .shop-signup-user .dropdown-menu li a {
+            color: #333;
+            letter-spacing: normal;
+            text-decoration: none;
+        }
+
+            ul.mr-100 .dropdown-menu li a:hover,
+            .shop-signup-user .dropdown-menu li a:hover {
+                width: 100%;
+                text-decoration: underline;
+                color: rgba(8, 121, 201, 1);
+            }
+
+.shop-signup-user .dropdown-toggle::after {
+    vertical-align: 0.155em;
+}
+
+.shop-signup-user a.dropdown-toggle{
+    color: black;
+}
+
+
+
+/*Cart Giỏ hàng*/
+
+
+.cart {
+    padding: 16px 24px 8px;
+    background-color: #f0f0f0;
+    min-height: 600px;
+}
+
+.cart-header {
+    margin-bottom: 8px;
+}
+
+.cart-header-title {
+    color: black;
+    font-size: 28px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.cart-header-list {
+    list-style: none;
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    margin: 8px 0;
+    background-color: white;
+    box-shadow: 0 1px 0px 0px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.cart-header-item {
+    font-weight: bold;
+    padding: 8px 16px;
+}
+
+    .cart-header-item:nth-child(1) {
+        width: 32px;
+        max-width: 40px;
+    }
+
+    .cart-header-item:nth-child(2) {
+        width: 100%;
+        max-width: 152px;
+    }
+
+    .cart-header-item:nth-child(3) {
+        width: 100%;
+        max-width: 520px;
+    }
+
+    .cart-header-item:nth-child(4) {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .cart-header-item:nth-child(5) {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .cart-header-item:nth-child(6) {
+    }
+
+    .cart-header-item:nth-child(7) {
+    }
+
+.cart-header-item-checkbox {
+    cursor: pointer;
+}
+
+.cart-header-item input {
+}
+
+.cart-content {
+    padding: 16px 0 8px
+}
+
+.cart-content-list {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    background-color: white;
+    box-shadow: 0 1px 0px 0px rgba(0, 0, 0, 0.1);
+    margin: 0px 0px 4px;
+    max-height: 80px;
+    text-align: left;
+}
+
+.cart-content-item {
+}
+
+    .cart-content-item:nth-child(1) {
+        width: 32px;
+        max-width: 40px;
+    }
+
+    .cart-content-item:nth-child(2) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 152px;
+    }
+
+    .cart-content-item:nth-child(3) {
+        width: 100%;
+        max-width: 520px;
+    }
+
+    .cart-content-item:nth-child(4) {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .cart-content-item:nth-child(5) {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .cart-content-item:nth-child(6) {
+/*        width: 136px;
+        max-width: 152px;*/
+        color: red;
+    }
+
+    .cart-content-item:nth-child(7) {
+        width: 48px;
+        text-align: end;
+        max-width: 100px;
+    }
+
+.cart-content-item-checkbox {
+    cursor: pointer;
+}
+
+.cart-content-item span {
+    font-weight: 500;
+}
+
+.cart-content-item form input {
+    width: 48px;
+    padding: 4px 8px;
+}
+
+    .cart-content-item form input:first-child {
+        font-weight: bold;
+    }
+
+    .cart-content-item form input:last-child {
+        width: 68px;
+        padding: 8px;
+        background-color: transparent;
+        border: none;
+        font-weight: 500;
+    }
+
+        .cart-content-item form input:last-child:hover {
+            background-color: red;
+            color: white;
+        }
+
+.cart-content-item-img {
+    width: 100%;
+    object-fit: contain;
+    max-height: 80px;
+}
+
+.cart-content-item button {
+    background-color: transparent;
+    border: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+    .cart-content-item button:hover {
+        background-color: #f0f0f0;
+        color: black;
+        cursor: pointer;
+    }
+
+.cart-bottom {
+    margin: 0 auto;
+    position: fixed;
+    bottom: -8px;
+    left: 24px;
+    width: calc(100% - 48px);
+    z-index: 100;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-top: 4px solid rgba(0, 0, 0, 0.8);
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: normal;
+    box-shadow: 0px -1px 4px 0px rgba(255, 255, 255, 1);
+}
+
+.cart-bottom-list-left,
+.cart-bottom-list-right {
+    list-style: none;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    margin: 0px !important;
+    background-color: #fff;
+    height: 100%;
+}
+
+.cart-bottom-list-left {
+}
+
+.cart-bottom-list-right {
+}
+
+.cart-bottom-item {
+    font-weight: 500;
+    padding: 8px 16px;
+}
+
+.cart-bottom-list-left .cart-bottom-item:nth-child(1) {
+    cursor: pointer;
+}
+
+
+.cart-bottom-list-left .cart-bottom-item:nth-child(2) {
+}
+
+.cart-bottom-list-left .cart-bottom-item:nth-child(3) {
+}
+
+    .cart-bottom-list-left .cart-bottom-item:nth-child(3) button {
+        background-color: transparent;
+        border: none;
+        cursor: not-allowed;
+        font-weight: 500;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 18px;
+    }
+
+
+.cart-bottom-list-right .cart-bottom-item:nth-child(1) {
+}
+
+
+.cart-bottom-list-right .cart-bottom-item:nth-child(2) {
+    color: red;
+}
+
+.cart-bottom-list-right .cart-bottom-item:nth-child(3) {
+}
+
+
+.cart-bottom-item-checkbox {
+    cursor: pointer;
+}
+
+.cart-bottom-button {
+    padding: 8px 16px;
+    background-color: red;
+    color: white;
+    border: 1px solid #000;
+}
+
+
+    .cart-bottom-button:hover {
+        border: 1px solid transparent;
+        box-shadow: 0px 1px 10px 0px #f00;
+        transform: translateY(-2px);
+        cursor: not-allowed;
+    }
+
+.disable-cursor {
+    cursor: not-allowed;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

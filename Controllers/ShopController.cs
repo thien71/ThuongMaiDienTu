@@ -17,11 +17,77 @@ namespace ThuongMaiDienTu.Controllers
         // GET: Shop
         public ActionResult Index()
         {
-            var tb_Shop = db.tb_Shop.Include(t => t.tb_Customer);
-            return View(tb_Shop.ToList());
+            var customerIdNullable = Session["CustomerID"] as int?;
+            if (!customerIdNullable.HasValue)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            int customerId = customerIdNullable.Value;
+            var shop = db.tb_Shop.SingleOrDefault(s => s.OwnerID == customerId);
+
+            if (shop == null)
+            {
+                return RedirectToAction("Signup");
+            }
+
+            var tb_Shop = db.tb_Shop.Include("tb_Customer").ToList();
+            return View(tb_Shop);
         }
 
-        // Trong phương thức Detail của Controller
+        [HttpGet]
+        public ActionResult Signup()
+        {
+            var customerIdNullable = Session["CustomerID"] as int?;
+            if (!customerIdNullable.HasValue)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            int customerId = customerIdNullable.Value;
+            var customer = db.tb_Customer.SingleOrDefault(c => c.CustomerID == customerId);
+            if (customer == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            ViewBag.UserName = customer.Username;
+            ViewBag.UserAvatar = customer.Avatar;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Signup(string name, string email, string tel)
+        {
+            var customerIdNullable = Session["CustomerID"] as int?;
+            if (!customerIdNullable.HasValue)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            int customerId = customerIdNullable.Value;
+            var customer = db.tb_Customer.SingleOrDefault(c => c.CustomerID == customerId);
+            if (customer == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var shop = new tb_Shop
+            {
+                OwnerID = customerId,
+                Name = name,
+                Email = email,
+                Phone = tel,
+                CreatedDate = DateTime.Now,
+                Avatar = "avatar-defauft.png"
+            };
+
+            db.tb_Shop.Add(shop);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         // Trong phương thức Detail của Controller
         public ActionResult Detail(int id, int? cateId)
         {

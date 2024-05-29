@@ -1,50 +1,48 @@
 ﻿
 @{
-    ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Shared/_LayoutPage2.cshtml";
 }
 
-<main class="mt-4">
-    <!-- modals -->
-    <!-- log in -->
-    <div class="" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header py-1">
-                    <h5 class="modal-title text-center">Log In</h5>
-                    @*<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>*@
-                </div>
-                <div class="modal-body py-1">
-                    <form action="#" method="post">
-                        <div class="form-group mb-2">
-                            <label class="col-form-label">Username</label>
-                            <input type="text" class="form-control" placeholder=" " name="Name" required="">
-                        </div>
-                        <div class="form-group mb-2">
-                            <label class="col-form-label">Password</label>
-                            <input type="password" class="form-control" placeholder=" " name="Password" required="">
-                        </div>
-                        <div class="right-w3l">
-                            <input type="submit" class="form-control" value="Log in">
-                        </div>
-                        <div class="sub-w3l">
-                            <div class="custom-control custom-checkbox mr-sm-2">
-                                <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
-                                <label class="custom-control-label" for="customControlAutosizing">Remember me?</label>
-                            </div>
-                        </div>
-                        <p class="text-center dont-do mt-3">
-                            Don't have an account?
-                            <a href="#" data-toggle="modal" data-target="#exampleModal2">
-                                Register Now
-                            </a>
-                        </p>
-                    </form>
-                </div>
+<header class="signup-header">
+    <h2>
+        TAKA
+        <span>Đăng nhập</span>
+    </h2>
+</header>
+<main class="signup-main">
+    <div class="signup-main-cover">
+        <h3>Đăng nhập</h3>
+        @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <input type="text" class="" placeholder="Tên đăng nhập" name="name" required="">
             </div>
+            <div class="form-group">
+                <input type="password" class="" placeholder="Mật khẩu" name="password" required="">
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger login-check" })
+
+            <button type="submit">Đăng nhập</button>
+        }
+        <div class="login-forget">
+            <a href="!#" class="">Quên mật khẩu</a>
+        </div>
+        <div class="signup-other">
+            <button class="signup-other-fb">
+                <img src="~/images/facebook.png" />
+                Facebook
+            </button>
+            <button class="signup-other-gg">
+                <img src="~/images/google.png" />
+                Google
+            </button>
+        </div>
+        <div class="signup-login">
+            <a href="/User/Signup">Đăng kí</a>
         </div>
     </div>
-    <!-- //modal -->
 </main>
+
+

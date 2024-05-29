@@ -137,6 +137,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\DatabaseModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -392,6 +393,9 @@
     <Content Include="Views\Cart\Create.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Shop\Detail.cshtml" />
+    <Content Include="Views\Shared\_LayoutPage2.cshtml" />
+    <Content Include="Views\Shop\Signup.cshtml" />
+    <Content Include="Views\Shared\_LayoutPage3.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

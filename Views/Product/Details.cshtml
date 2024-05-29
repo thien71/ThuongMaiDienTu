@@ -49,9 +49,40 @@
                 <div class="detail-delivery">
                     <p>
                         <span>Vận chuyển:</span>
-                        <strong>Phường Thanh Bình, quận Hải Châu</strong>
+                        <strong id="delivery-address">Phường Thanh Bình, Quận Hải Châu</strong>
                     </p>
                 </div>
+
+                <!---->
+                <!-- The Modal -->
+                <div id="addressModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h4 class="mb-4">Chọn địa chỉ</h4>
+                        <label for="city">Thành phố:</label>
+                        <select id="city">
+                            <option value="">Chọn thành phố</option>
+                            <!-- Populate this with all cities -->
+                        </select>
+
+                        <label for="district">Quận/Huyện:</label>
+                        <select id="district">
+                            <option value="">Chọn quận/huyện</option>
+                            <!-- Populate this dynamically based on selected city -->
+                        </select>
+
+                        <label for="ward">Xã/Phường:</label>
+                        <select id="ward">
+                            <option value="">Chọn xã/phường</option>
+                            <!-- Populate this dynamically based on selected district -->
+                        </select>
+
+                        <button id="confirmAddress" class="btn btn-primary mt-4">Xác nhận</button>
+                    </div>
+                </div>
+                <!---->
+
+
                 <div class="detail-quantity">
                     <label for="quantity">Số lượng:</label>
                     <div class="detail-quantity-input-group">
@@ -68,13 +99,25 @@
                         <span>sản phẩm còn</span>
                     </p>
                 </div>
-                <div class="detail-button">
-                    <button class="btn btn-primary">
+                @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Post, new { @class = "detail-button" }))
+                {
+                    <button type="submit" class="btn btn-primary">
                         <i class="fa-solid fa-cart-plus"></i>
                         <span>Thêm vào giỏ hàng</span>
                     </button>
                     <button class="btn btn-danger">Mua ngay</button>
-                </div>
+                    <input type="hidden" name="productId" value="@ViewBag.Product.ProductID" />
+                    <input type="hidden" name="quantity" id="hiddenQuantity" value="1" />
+                }
+
+
+                @*<div class="detail-button">
+            <button class="btn btn-primary">
+                <i class="fa-solid fa-cart-plus"></i>
+                <span>Thêm vào giỏ hàng</span>
+            </button>
+            <button class="btn btn-danger">Mua ngay</button>
+        </div>*@
             </div>
         </div>
     </div>
@@ -245,3 +288,124 @@
         </div>
     </div>
 </main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const $quantityInput = $("#quantity");
+        const $hiddenQuantityInput = $("#hiddenQuantity");
+        const maxQuantity = parseInt($quantityInput.attr("max"));
+
+        function updateHiddenQuantity() {
+            $hiddenQuantityInput.val($quantityInput.val());
+        }
+
+        $(".detail-quantity-prepend").click(function () {
+            let currentValue = parseInt($quantityInput.val());
+            if (currentValue > 1) {
+                currentValue -= 1;
+                $quantityInput.val(currentValue);
+                updateHiddenQuantity();
+            }
+        });
+
+        $(".detail-quantity-append").click(function () {
+            let currentValue = parseInt($quantityInput.val());
+            if (currentValue < maxQuantity) {
+                currentValue += 1;
+                $quantityInput.val(currentValue);
+                updateHiddenQuantity();
+            }
+        });
+
+        // Ensure hidden quantity input is updated on manual input change
+        $quantityInput.on('input', function () {
+            updateHiddenQuantity();
+        });
+
+        // Initial sync
+        updateHiddenQuantity();
+    });
+</script>
+
+<!--Chọn địa chỉ-->
+
+<script>
+    $(document).ready(function () {
+        var modal = $("#addressModal");
+        var btn = $(".detail-delivery");
+        var span = $(".close");
+        var addressText = $("#delivery-address");
+
+        btn.click(function () {
+            modal.show();
+        });
+
+        span.click(function () {
+            modal.hide();
+        });
+
+        $(window).click(function (event) {
+            if (event.target.id == 'addressModal') {
+                modal.hide();
+            }
+        });
+
+        // Mock data, should be replaced with real data or fetched via AJAX
+        var cities = {
+            "Hà Nội": {
+                "Ba Đình": ["Phường Cống Vị", "Phường Điện Biên"],
+                "Hoàn Kiếm": ["Phường Hàng Bạc", "Phường Hàng Bồ"]
+            },
+            "Hồ Chí Minh": {
+                "Quận 1": ["Phường Bến Nghé", "Phường Bến Thành"],
+                "Quận 3": ["Phường 1", "Phường 2"]
+            }
+        };
+
+        // Populate cities
+        for (var city in cities) {
+            $("#city").append(new Option(city, city));
+        }
+
+        $("#city").change(function () {
+            var city = $(this).val();
+            var districts = $("#district");
+            districts.html('<option value="">Chọn quận/huyện</option>');
+            $("#ward").html('<option value="">Chọn xã/phường</option>');
+
+            if (city) {
+                for (var district in cities[city]) {
+                    districts.append(new Option(district, district));
+                }
+            }
+        });
+
+        $("#district").change(function () {
+            var city = $("#city").val();
+            var district = $(this).val();
+            var wards = $("#ward");
+            wards.html('<option value="">Chọn xã/phường</option>');
+
+            if (city && district) {
+                var wardList = cities[city][district];
+                for (var i = 0; i < wardList.length; i++) {
+                    wards.append(new Option(wardList[i], wardList[i]));
+                }
+            }
+        });
+
+        $("#confirmAddress").click(function () {
+            var city = $("#city").val();
+            var district = $("#district").val();
+            var ward = $("#ward").val();
+
+            if (city && district && ward) {
+                addressText.text(`${ward}, ${district}, ${city}`);
+                modal.hide();
+            } else {
+                alert("Vui lòng chọn đầy đủ thành phố, quận/huyện và xã/phường.");
+            }
+        });
+    });
+</script>

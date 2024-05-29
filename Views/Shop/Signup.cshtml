@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Signup";
+    Layout = "~/Views/Shared/_LayoutPage3.cshtml";
+}
+
+<header class="shop-signup-header">
+    <div class="shop-signup-logo">
+        <a href="/Home/Index">Taka</a>
+        <span>Đăng kí trở thành người bán</span>
+    </div>
+    <div class="shop-signup-user dropdown">
+        <a href="" class="dropdown-toggle text-black" data-toggle="dropdown">
+            <img src="~/images/@ViewBag.UserAvatar" alt="User Avatar" />
+            <span>@ViewBag.UserName</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="/User/Logout">Đăng xuất</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="shop-signup-main">
+    <div class="shop-signup-enter">
+        <form action="@Url.Action("Signup", "Shop")" method="post">
+            <div class="form-group">
+                <label>Tên shop</label>
+                <input type="text" class="" placeholder="Tên shop" name="name" required="">
+                @Html.ValidationMessage("name", "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label>Địa chỉ</label>
+                <span>Phường Thanh Bình, quận Hải Châu, Thành phố Đà Nẵng</span>
+                <button type="button">Chỉnh sửa</button>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="" placeholder="Email" name="email" required="">
+                @Html.ValidationMessage("email", "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <label>Số điện thoại</label>
+                <input type="tel" class="" placeholder="Số điện thoại" name="tel" required="">
+                @Html.ValidationMessage("tel", "", new { @class = "text-danger" })
+            </div>
+            <div class="shop-signup-save">
+                <button type="submit">Xác nhận</button>
+            </div>
+        </form>
+    </div>
+    @*<div class="shop-signup-save">
+        <button>Xác nhận</button>
+    </div>*@
+</main>
+
+<script src="/js/jquery-2.2.3.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".dropdown").hover(
+            function () {
+                $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                $(this).toggleClass('open');
+            },
+            function () {
+                $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                $(this).toggleClass('open');
+            }
+        );
+    });
+</script>
