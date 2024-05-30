@@ -162,6 +162,7 @@
     <Compile Include="Models\procGetProduct_Result.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductManage.cs" />
     <Compile Include="Models\tb_Address.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
@@ -396,6 +397,7 @@
     <Content Include="Views\Shared\_LayoutPage2.cshtml" />
     <Content Include="Views\Shop\Signup.cshtml" />
     <Content Include="Views\Shared\_LayoutPage3.cshtml" />
+    <Content Include="Views\Product\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

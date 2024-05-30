@@ -32,6 +32,8 @@ namespace ThuongMaiDienTu.Controllers
             }
 
             var tb_Shop = db.tb_Shop.Include("tb_Customer").ToList();
+            ViewBag.UserName = shop.Name;
+            ViewBag.UserAvatar = shop.Avatar;
             return View(tb_Shop);
         }
 

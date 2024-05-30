@@ -1,0 +1,141 @@
+﻿@model ThuongMaiDienTu.Models.ProductManage
+
+@{
+    ViewBag.Title = "Quản lí sản phẩm";
+    Layout = "~/Views/Shared/_LayoutPage3.cshtml";
+}
+
+<header class="shop-signup-header">
+    <div class="shop-signup-logo">
+        <a href="/Home/Index">Taka</a>
+        <span>Kênh người bán</span>
+    </div>
+    <div class="shop-signup-user dropdown">
+        <a href="" class="dropdown-toggle text-black" data-toggle="dropdown">
+            <img src="~/images/@ViewBag.ShopAvatar" alt="User Avatar" />
+            <span>@ViewBag.ShopName</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="/User/Logout">Đăng xuất</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="shop-manage">
+    <div class="shop-sidebar">
+        <nav>
+            <ul class="shop-sidebar-delivery">
+                <i class="fa-solid fa-truck-fast"></i>
+                Vận chuyển
+                <li><a href="#">Quản lí vận chuyển</a></li>
+                <li><a href="#">Cài đặt vận chuyển</a></li>
+            </ul>
+            <ul class="shop-sidebar-order">
+                <i class="fa-solid fa-receipt"></i>
+                Quản lí đơn hàng
+                <li><a href="#">Tất cả</a></li>
+                <li><a href="#">Đã hủy</a></li>
+            </ul>
+            <ul class="shop-sidebar-product">
+                <i class="fa-solid fa-box"></i>
+                Quản lí sản phẩm
+                <li><a href="#" class="active">Tất cả</a></li>
+                <li><a href="/Product/Create">Thêm sản phẩm</a></li>
+            </ul>
+            <ul class="shop-sidebar-myshop">
+                <i class="fa-solid fa-shop"></i>
+                Quản lí shop
+                <li><a href="#">Hồ sơ shop</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="shop-manage-content">
+        <div class="shop-manage-content-cover">
+            <div class="shop-product-search">
+                @using (Html.BeginForm("Manage", "Product", FormMethod.Post, new { id = "searchForm" }))
+                {
+                    <div class="shop-product-search-name">
+                        <span>Tên</span>
+                        <input id="searchname" type="text" name="SearchName" placeholder="Tìm tên sản phẩm" value="@Model.SearchName" />
+                    </div>
+                    <div class="shop-product-search-cate">
+                        <span>Danh mục</span>
+                        @Html.DropDownListFor(m => m.SelectedCategory, Model.Categories, "Chọn danh mục")
+                    </div>
+                    <div class="shop-product-search-brand">
+                        <span>Thương hiệu</span>
+                        @Html.DropDownListFor(m => m.SelectedBrand, Model.Brands, "Chọn thương hiệu")
+                    </div>
+                    <div class="shop-product-search-btn">
+                        <button type="submit">Tìm</button>
+                        <button type="button" id="resetButton">Làm mới</button>
+                    </div>
+                }
+            </div>
+            <div class="shop-product">
+                <div class="shop-product-overview">
+                    <div class="shop-product-totalproduct">
+                        <span>@Model.Products.Count</span> sản phẩm
+                    </div>
+                    <button>
+                        <i class="fa-solid fa-plus"></i>
+                        <a href="@Url.Action("Create", "Product")">Thêm 1 sản phẩm mới</a>
+                    </button>
+                </div>
+                <div class="shop-product-detail">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="selectAll"></th>
+                                <th>Sản phẩm</th>
+                                <th>Danh mục</th>
+                                <th>Thương hiệu</th>
+                                <th>Giá</th>
+                                <th>Kho hàng</th>
+                                <th>Hoạt động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in Model.Products)
+                            {
+                                <tr>
+                                    <td><input type="checkbox" name="selectedProducts" value="@product.ProductID"></td>
+                                    <td>
+                                        <img src="~/images/@product.Image" alt="@product.Name" class="product-image">
+                                        <span>@product.Name</span>
+                                    </td>
+                                    <td class="text-center">@product.tb_ProductCategory.Name</td>
+                                    <td class="text-center">@product.tb_Brand.Name</td>
+                                    <td class="text-center">@String.Format("{0:N0} VND", product.Price)</td>
+                                    <td class="text-center">@product.Quantity</td>
+                                    <td class="text-center">
+                                        <button onclick="location.href='@Url.Action("Edit", "Product", new { id = product.ProductID })'">Sửa</button>
+                                        <button onclick="if(confirm('Bạn có chắc chắn muốn xoá sản phẩm này?')) location.href='@Url.Action("Delete", "Product", new { id = product.ProductID })'">Xoá</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    document.getElementById('resetButton').addEventListener('click', function () {
+        var input = document.getElementById('searchname');
+        input.value = "";
+        var form = document.getElementById('searchForm');
+        form.reset();
+    });
+</script>
+
+<script>
+    document.getElementById('selectAll').addEventListener('change', function () {
+        var checkboxes = document.querySelectorAll('input[name="selectedProducts"]');
+        for (var checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+        }
+    });
+</script>

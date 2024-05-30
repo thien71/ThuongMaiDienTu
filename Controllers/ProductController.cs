@@ -108,6 +108,107 @@ namespace ThuongMaiDienTu.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult Manage()
+        {
+            var customerIdNullable = Session["CustomerID"] as int?;
+            if (!customerIdNullable.HasValue)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            int customerId = customerIdNullable.Value;
+            var customer = db.tb_Customer.SingleOrDefault(c => c.CustomerID == customerId);
+            if (customer == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var shop = db.tb_Shop.FirstOrDefault(s => s.OwnerID == customerId);
+            if (shop == null)
+            {
+                return HttpNotFound();
+            }
+
+            var model = new ProductManage
+            {
+                Brands = db.tb_Brand.Select(b => new SelectListItem
+                {
+                    Value = b.BrandID.ToString(),
+                    Text = b.Name
+                }).ToList(),
+                Categories = db.tb_ProductCategory.Select(c => new SelectListItem
+                {
+                    Value = c.CateID.ToString(),
+                    Text = c.Name
+                }).ToList(),
+                Products = db.tb_Product.Where(p => p.ShopID == shop.ShopID).ToList()
+            };
+
+            ViewBag.ShopAvatar = shop.Avatar;
+            ViewBag.ShopName = shop.Name;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Manage(ProductManage model)
+        {
+            var customerIdNullable = Session["CustomerID"] as int?;
+            if (!customerIdNullable.HasValue)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            int customerId = customerIdNullable.Value;
+            var customer = db.tb_Customer.SingleOrDefault(c => c.CustomerID == customerId);
+            if (customer == null)
+            {
+                return RedirectToAction("Login", "User");
+            }
+
+            var shop = db.tb_Shop.FirstOrDefault(s => s.OwnerID == customerId);
+            if (shop == null)
+            {
+                return HttpNotFound();
+            }
+
+            var products = db.tb_Product.Where(p => p.ShopID == shop.ShopID).AsQueryable();
+
+            if (!string.IsNullOrEmpty(model.SearchName))
+            {
+                products = products.Where(p => p.Name.Contains(model.SearchName));
+            }
+
+            if (model.SelectedCategory.HasValue)
+            {
+                products = products.Where(p => p.CateID == model.SelectedCategory.Value);
+            }
+
+            if (model.SelectedBrand.HasValue)
+            {
+                products = products.Where(p => p.BrandID == model.SelectedBrand.Value);
+            }
+
+            model.Brands = db.tb_Brand.Select(b => new SelectListItem
+            {
+                Value = b.BrandID.ToString(),
+                Text = b.Name
+            }).ToList();
+
+            model.Categories = db.tb_ProductCategory.Select(c => new SelectListItem
+            {
+                Value = c.CateID.ToString(),
+                Text = c.Name
+            }).ToList();
+
+            model.Products = products.ToList();
+
+            ViewBag.ShopAvatar = shop.Avatar;
+            ViewBag.ShopName = shop.Name;
+
+            return View(model);
+        }
 
 
         // GET: Product/Create

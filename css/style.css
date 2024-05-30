@@ -3216,8 +3216,9 @@ div#testimonials h4.m-title {
 
 .shop-signup-user {
     padding: 4px 8px;
-    width: 120px;
-    max-width: 200px;
+    width: 100%;
+    max-width: 240px;
+    text-align: right;
 }
 
     .shop-signup-user img {
@@ -3314,12 +3315,269 @@ div#testimonials h4.m-title {
         border-radius: 4px;
     }
 
+/*Shop Manage*/
+
+.shop-manage {
+    margin-top: 56px;
+}
+
+
+.shop-sidebar {
+    width: 200px;
+    background-color: #fff;
+    color: black;
+    position: fixed;
+    top: 56px;
+    bottom: 0;
+    padding: 20px 16px;
+    box-shadow: 0 0px 4px 0 rgba(0, 0, 0, .07);
+}
+
+    .shop-sidebar nav ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0 0 16px;
+        color: rgba(0,0,0,0.5);
+        font-weight: bold;
+        font-size: 16px;
+        letter-spacing: normal;
+    }
+
+        .shop-sidebar nav ul li {
+            margin: 4px 8px;
+        }
+
+        .shop-sidebar nav ul i {
+            font-size: 12px;
+            margin-right: 4px;
+        }
+
+            .shop-sidebar nav ul li a {
+                color: black;
+                padding: 8px 12px;
+                font-size: 14px;
+                display: inline-block;
+                width: 100%;
+                text-decoration: none;
+                border-radius: 4px;
+                font-weight: normal;
+            }
+
+                .shop-sidebar nav ul li a:hover {
+                    background-color: rgba(8, 121, 201, 0.2);
+                }
+
+                .shop-sidebar nav ul li a.active {
+                    background-color: rgba(8, 121, 201, 0.2);
+                }
+
+.shop-manage-content {
+    margin-left: 200px;
+    padding: 32px;
+    width: calc(100% - 200px);
+}
+
+.shop-manage-content-cover {
+    background-color: #fff;
+    padding: 0;
+    border-radius: 4px;
+}
+
+.shop-manage-content-cover h1{
+    text-align: center;
+    font-size: 28px;
+} 
+
+/*Shop Manage*/
+
+.shop-product-search {
+    box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.2);
+    padding: 16px;
+}
+
+.shop-product-search-name {
+
+}
+
+.shop-product-search-cate {
+
+}
+
+.shop-product-search-brand {
+
+}
+
+.shop-product-search form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .shop-product-search form input {
+        outline: none;
+        padding: 4px 12px 4px 6px;
+        font-size: 14px;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        color: black;
+        width: 200px;
+        max-width: 260px;
+    }
+
+    .shop-product-search form span {
+        font-size: 16px;
+        margin-right: 8px;
+        letter-spacing: normal;
+    }
+
+    .shop-product-search form select {
+        padding: 4px 12px 4px 0px;
+        font-size: 14px;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 0, 0, 0.25);
+        color: black;
+        width: 200px;
+        max-width: 260px;
+    }
+
+.shop-product-search form select option{
+
+}
+
+.shop-product-search-btn {
+
+}
+
+    .shop-product-search-btn button {
+        outline: none;
+        border: 1px solid rgba(8, 121, 201, 0.9);
+        border-radius: 4px;
+        font-size: 14px;
+        padding: 4px 12px;
+        width: 88px;
+        max-width: 120px;
+    }
+
+    .shop-product-search-btn button:first-child {
+        background-color: rgba(8, 121, 201, 0.9);
+        color: white;
+        margin-right: 16px;
+    }
+
+    .shop-product-search-btn button:hover {
+        filter: brightness(1.2);
+        cursor: pointer;
+    }
+
+
+.shop-product {
+    margin: 16px 0 0;
+    padding: 16px;
+}
+
+.shop-product-overview {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 0 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.shop-product-totalproduct {
+    color: black;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: normal;
+}
+
+
+    .shop-product-totalproduct span {
+        color: blue;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+.shop-product-overview button {
+    display: flex;
+    align-items: center;
+    outline: none;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 4px 12px;
+    background-color: rgba(8, 121, 201, 0.9);
+}
+    .shop-product-overview button i {
+        color: white;
+        font-size: 12px;
+        margin-right: 8px;
+    }
+
+.shop-product-overview button a {
+    color: white;
+}
+
+.shop-product-detail {
+    padding: 16px 0;
+}
+
+    .shop-product-detail table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .shop-product-detail th, .shop-product-detail td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .shop-product-detail th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .shop-product-detail td img.product-image {
+        width: 50px;
+        height: 50px;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+
+    .shop-product-detail td button {
+        padding: 4px 12px;
+        margin-right: 5px;
+        border: none;
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+        .shop-product-detail td button:last-child {
+            background-color: #f44336;
+        }
+
+        .shop-product-detail td button:hover {
+            opacity: 0.8;
+        }
+
+    .shop-product-detail td input[type="checkbox"] {
+        cursor: pointer;
+    }
+
+
+
+
+
+
 
 
 
 
 /*Đăng kí đăng nhập*/
-
 .signup-header {
     padding: 32px;
     background-color: white;
