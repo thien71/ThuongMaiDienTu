@@ -285,6 +285,10 @@ button.w3view-cart i {
     font-size: 15px;
     color: #000;
 }
+.nav-item.mr-lg-2.mb-lg-0.mb-2 a {
+    font-size: 14px;
+}
+
 
 .navbar-light .navbar-nav .show>.nav-link,
 .navbar-light .navbar-nav .active>.nav-link,
@@ -2498,6 +2502,9 @@ div#testimonials h4.m-title {
     min-height: 124px;
 }
 
+.product-cate-row .product-cate-cover {
+    padding: 8px;
+}
 
 .product-title {
     text-align: center;
@@ -2509,6 +2516,7 @@ div#testimonials h4.m-title {
 .product-price {
     text-align: center;
     font-size: 12px;
+    margin-top: 12px;
 }
 
 .product-price-old {
@@ -3403,7 +3411,51 @@ div#testimonials h4.m-title {
 .shop-manage-content-cover h1{
     text-align: center;
     font-size: 28px;
-} 
+}
+
+.shop-manage-home {
+    padding: 16px;
+}
+
+    .shop-manage-home h4 {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
+
+.shop-manage-home ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.shop-manage-home ul li {
+    flex: 0 0 25%; 
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+}
+
+    .shop-manage-home ul li a {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        font-size: 16px;
+    }
+
+    .shop-manage-home ul li strong {
+        display: block;
+        font-size: 20px;
+    }
+
+    .shop-manage-home ul li span {
+        display: block;
+        margin-top: 16px;
+        font-size: 14px;
+    }
+
+
 
 /*Shop Manage*/
 
@@ -4426,7 +4478,13 @@ ul.mr-100 .dropdown-menu,
         font-size: 16px;
         width: 100%;
         border: 1px solid transparent;
-        text-align: center;
+        text-align: left;
+    }
+
+    .orderbuy-sidebar ul li a i  {
+        font-size: 14px;
+        margin-right: 8px;
+
     }
 
         .orderbuy-sidebar ul li a:hover {

@@ -31,11 +31,33 @@ namespace ThuongMaiDienTu.Controllers
                 return RedirectToAction("Signup");
             }
 
-            var tb_Shop = db.tb_Shop.Include("tb_Customer").ToList();
+            // Tính toán số lượng đơn chờ lấy hàng và sản phẩm hết hàng
+            var ordersWaitingForPickup = db.tb_Order
+                                           .Where(o => o.ShopID == shop.ShopID && o.Status == "Chờ thanh toán")
+                                           .Count();
+
+            var outOfStockProducts = db.tb_Product
+                                       .Where(p => p.ShopID == shop.ShopID && p.Quantity == 0)
+                                       .Count();
+
+            if (ordersWaitingForPickup == null)
+            {
+                ordersWaitingForPickup = 0;
+            }
+
+            if (outOfStockProducts == null)
+            {
+                outOfStockProducts = 0;
+            }
+
             ViewBag.UserName = shop.Name;
             ViewBag.UserAvatar = shop.Avatar;
-            return View(tb_Shop);
+            ViewBag.OrdersWaitingForPickup = ordersWaitingForPickup;
+            ViewBag.OutOfStockProducts = outOfStockProducts;
+
+            return View();
         }
+
 
         [HttpGet]
         public ActionResult Signup()

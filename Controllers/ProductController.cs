@@ -20,14 +20,71 @@ namespace ThuongMaiDienTu.Controllers
         private dbThuongMaiDienTuEntities db = new dbThuongMaiDienTuEntities();
 
         // GET: Product
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    ViewBag.Products = db.tb_Product.Include(t => t.tb_Brand).Include(t => t.tb_ProductCategory).Include(t => t.tb_Shop).Include(t => t.tb_Supplier).ToList();
+        //    ViewBag.Categories = db.tb_ProductCategory.ToList();
+        //    ViewBag.Brands = db.tb_Brand.ToList();
+
+        //    return View();
+        //}
+
+        public ActionResult Index(string search, string sortOrder, int? page)
         {
-            ViewBag.Products = db.tb_Product.Include(t => t.tb_Brand).Include(t => t.tb_ProductCategory).Include(t => t.tb_Shop).Include(t => t.tb_Supplier).ToList();
-            ViewBag.Categories = db.tb_ProductCategory.ToList();
-            ViewBag.Brands = db.tb_Brand.ToList();
+            var products = db.tb_Product.Include(t => t.tb_Brand)
+                                        .Include(t => t.tb_ProductCategory)
+                                        .Include(t => t.tb_Shop)
+                                        .Include(t => t.tb_Supplier)
+                                        .ToList();
+
+            var categories = db.tb_ProductCategory.ToList();
+            var brands = db.tb_Brand.ToList();
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                products = products.Where(x => x.Name.ToLower().Contains(search.ToLower())).ToList();
+            }
+
+            // Sorting logic
+            switch (sortOrder)
+            {
+                case "newest":
+                    products = products.OrderByDescending(x => x.CreatedDate).ToList();
+                    break;
+                case "bestselling":
+                    products = products.OrderByDescending(x => x.QuantitySold).ToList();
+                    break;
+                case "price_low_high":
+                    products = products.OrderBy(x => x.Price).ToList();
+                    break;
+                case "price_high_low":
+                    products = products.OrderByDescending(x => x.Price).ToList();
+                    break;
+                default:
+                    products = products.OrderBy(x => Guid.NewGuid()).ToList();
+                    break;
+            }
+
+            // Pagination logic
+            int pageSize = 20;
+            int pageNumber = (page ?? 1);
+            int totalItems = products.Count();
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+            products = products.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+            ViewBag.Products = products;
+            ViewBag.Categories = categories;
+            ViewBag.Brands = brands;
+            ViewBag.Search = search;
+            ViewBag.SortOrder = sortOrder;
+            ViewBag.PageNumber = pageNumber;
+            ViewBag.TotalPages = totalPages;
 
             return View();
         }
+
+
+
 
         public ActionResult Details(int id, int page = 1, int pageSize = 5)
         {

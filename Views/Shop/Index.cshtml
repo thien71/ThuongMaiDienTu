@@ -21,21 +21,20 @@
     </div>
 </header>
 
-
 <main class="shop-manage">
     <div class="shop-sidebar">
         <nav>
             <ul class="shop-sidebar-delivery">
                 <i class="fa-solid fa-truck-fast"></i>
                 Vận chuyển
-                <li><a href="!">Quản lí vận chuyển</a></li>
-                <li><a href="!">Cài đặt vận chuyển</a></li>
+                <li><a href="#">Quản lí vận chuyển</a></li>
+                <li><a href="#">Cài đặt vận chuyển</a></li>
             </ul>
             <ul class="shop-sidebar-order">
                 <i class="fa-solid fa-receipt"></i>
                 Quản lí đơn hàng
-                <li><a href="#all-orders">Tất cả</a></li>
-                <li><a href="#cancelled-orders">Đã hủy</a></li>
+                <li><a href="#">Tất cả</a></li>
+                <li><a href="#">Đã hủy</a></li>
             </ul>
             <ul class="shop-sidebar-product">
                 <i class="fa-solid fa-box"></i>
@@ -46,13 +45,65 @@
             <ul class="shop-sidebar-myshop">
                 <i class="fa-solid fa-shop"></i>
                 Quản lí shop
-                <li><a href="#shop-profile">Hồ sơ shop</a></li>
+                <li><a href="#">Hồ sơ shop</a></li>
             </ul>
         </nav>
     </div>
     <div class="shop-manage-content">
         <div class="shop-manage-content-cover">
-            <h1>Chào mừng đến trang quản lí shop!</h1>
+            <div class="shop-manage-home">
+                <h4>Danh sách cần làm</h4>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <strong>0</strong>
+                            <span>Chờ xác nhận</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <strong>@ViewBag.OrdersWaitingForPickup</strong>
+                            <span>Chờ lấy hàng</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <strong>0</strong>
+                            <span>Đã xử lí</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <strong>0</strong>
+                            <span>Đơn huỷ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <strong>0</strong>
+                            <span>Trả hàng/hoàn tiền</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <strong>0</strong>
+                            <span>Sản phẩm tạm khoá</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <strong>@ViewBag.OutOfStockProducts</strong>
+                            <span>Sản phẩm hết hàng</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <strong>0</strong>
+                            <span>Khuyến mãi chờ xử lí</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </main>

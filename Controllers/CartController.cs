@@ -279,7 +279,7 @@ namespace ThuongMaiDienTu.Controllers
         }
 
 
-        public ActionResult Orders()
+        public ActionResult Orders(string status)
         {
             int? customerIdNullable = Session["CustomerID"] as int?;
 
@@ -290,30 +290,38 @@ namespace ThuongMaiDienTu.Controllers
 
             int customerId = customerIdNullable.Value;
 
-            var orders = db.tb_Order
-                           .Where(o => o.CustomerID == customerId)
-                           .Select(o => new OrderBuy
-                           {
-                               OrderID = o.OrderID,
-                               OrderDate = (DateTime)o.OrderDate,
-                               Status = o.Status,
-                               ShopName = db.tb_Shop.Where(s => s.ShopID == o.ShopID).Select(s => s.Name).FirstOrDefault(),
-                               ShopID = (int)o.ShopID,
-                               OrderDetails = db.tb_OrderDetail
-                                                .Where(od => od.OrderID == o.OrderID)
-                                                .Select(od => new OrderDetail
-                                                {
-                                                    ProductID = (int)od.ProductID,
-                                                    ProductName = db.tb_Product.Where(p => p.ProductID == od.ProductID).Select(p => p.Name).FirstOrDefault(),
-                                                    ProductImage = db.tb_Product.Where(p => p.ProductID == od.ProductID).Select(p => p.Image).FirstOrDefault(),
-                                                    Price = (decimal)od.Price,
-                                                    Quantity = (int)od.Quantity,
-                                                    TotalPrice = (decimal)(od.Price * od.Quantity)
-                                                }).ToList()
-                           }).ToList();
+            var ordersQuery = db.tb_Order.Where(o => o.CustomerID == customerId);
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                ordersQuery = ordersQuery.Where(o => o.Status == status);
+            } else
+            {
+                ordersQuery = ordersQuery.Where(o => o.Status == "Chờ thanh toán");
+            }
+
+            var orders = ordersQuery
+                .Select(o => new OrderBuy
+                {
+                    OrderID = o.OrderID,
+                    OrderDate = (DateTime)o.OrderDate,
+                    Status = o.Status,
+                    ShopName = db.tb_Shop.Where(s => s.ShopID == o.ShopID).Select(s => s.Name).FirstOrDefault(),
+                    ShopID = (int)o.ShopID,
+                    OrderDetails = db.tb_OrderDetail
+                        .Where(od => od.OrderID == o.OrderID)
+                        .Select(od => new OrderDetail
+                        {
+                            ProductID = (int)od.ProductID,
+                            ProductName = db.tb_Product.Where(p => p.ProductID == od.ProductID).Select(p => p.Name).FirstOrDefault(),
+                            ProductImage = db.tb_Product.Where(p => p.ProductID == od.ProductID).Select(p => p.Image).FirstOrDefault(),
+                            Price = (decimal)od.Price,
+                            Quantity = (int)od.Quantity,
+                            TotalPrice = (decimal)(od.Price * od.Quantity)
+                        }).ToList()
+                }).ToList();
 
             return View(orders);
         }
-
     }
 }

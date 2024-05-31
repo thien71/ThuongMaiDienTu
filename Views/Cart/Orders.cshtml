@@ -5,14 +5,23 @@
     Layout = "~/Views/Shared/_LayoutPage1.cshtml";
 }
 
-
 <main class="orderbuy">
     <div class="row px-4">
         <!-- Sidebar -->
         <div class="col-md-2 orderbuy-sidebar">
             <ul>
-                <li><a href="#" class="">Tài khoản của tôi</a></li>
-                <li><a href="#" class="active">Đơn mua</a></li>
+                <li>
+                    <a href="#" class="">
+                        <i class="fa-regular fa-user"></i>
+                        Tài khoản của tôi
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="active">
+                        <i class="fa-solid fa-receipt"></i>
+                        Đơn mua
+                    </a>
+                </li>
             </ul>
         </div>
 
@@ -24,7 +33,7 @@
                 <button type="button" class="btn btn-secondary">Vận chuyển</button>
                 <button type="button" class="btn btn-secondary">Đang giao</button>
                 <button type="button" class="btn btn-secondary">Hoàn thành</button>
-                <button type="button" class="btn btn-secondary">Đã hủy</button>
+                <button type="button" class="btn btn-secondary">Đã huỷ</button>
             </div>
 
             <!-- Orders list -->
@@ -42,7 +51,6 @@
 
                     <table class="order-details table">
                         <thead>
-
                         </thead>
                         <tbody>
                             @foreach (var item in order.OrderDetails)
@@ -69,4 +77,60 @@
         </div>
     </div>
 </main>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        attachButtonClickHandlers();
+
+        function attachButtonClickHandlers() {
+            var buttons = document.querySelectorAll('.orderbuy-menu-status .btn');
+            buttons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var status = button.innerText.trim();
+                    fetchOrders(status);
+                    updateSelectedButton(button);
+                    // Cập nhật URL mà không tải lại trang
+                    var newUrl = `${window.location.origin}${window.location.pathname}?status=${encodeURIComponent(status)}`;
+                    history.pushState({ path: newUrl }, '', newUrl);
+                });
+            });
+        }
+
+        function fetchOrders(status) {
+            fetch(`/Cart/Orders?status=${encodeURIComponent(status)}`)
+                .then(response => response.text())
+                .then(html => {
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(html, 'text/html');
+                    var newContent = doc.querySelector('.orderbuy-main').innerHTML;
+                    document.querySelector('.orderbuy-main').innerHTML = newContent;
+                    // Gán lại sự kiện click cho các nút mới
+                    attachButtonClickHandlers();
+                });
+        }
+
+        function updateSelectedButton(selectedButton) {
+            var buttons = document.querySelectorAll('.orderbuy-menu-status .btn');
+            buttons.forEach(function (button) {
+                button.classList.remove('selected');
+            });
+            selectedButton.classList.add('selected');
+        }
+
+        // Đọc giá trị của tham số "status" từ URL và thiết lập nút ban đầu
+        var urlParams = new URLSearchParams(window.location.search);
+        var status = urlParams.get('status');
+        if (status) {
+            var initialButton = Array.from(document.querySelectorAll('.orderbuy-menu-status .btn')).find(function (button) {
+                return button.innerText.trim() === status;
+            });
+            if (initialButton) {
+                updateSelectedButton(initialButton);
+            }
+        }
+    });
+</script>
+
 
