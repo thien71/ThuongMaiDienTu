@@ -142,7 +142,6 @@
             }
         });
 
-        // Mock data, should be replaced with real data or fetched via AJAX
         var cities = {
             "Hà Nội": {
                 "Ba Đình": ["Phường Cống Vị", "Phường Điện Biên"],
@@ -151,8 +150,271 @@
             "Hồ Chí Minh": {
                 "Quận 1": ["Phường Bến Nghé", "Phường Bến Thành"],
                 "Quận 3": ["Phường 1", "Phường 2"]
+            },
+            "Đà Nẵng": {
+                "Hải Châu": ["Phường Bình Hiên", "Phường Bình Thuận", "Phường Hải Châu 1", "Phường Hải Châu 2", "Phường Hòa Cường Bắc", "Phường Hòa Cường Nam", "Phường Hòa Thuận Đông", "Phường Hòa Thuận Tây", "Phường Nam Dương", "Phường Phước Ninh", "Phường Thạch Thang", "Phường Thanh Bình", "Phường Thuận Phước"],
+                "Thanh Khê": ["Phường An Khê", "Phường Chính Gián", "Phường Hòa Khê", "Phường Tam Thuận", "Phường Tân Chính", "Phường Thạc Gián", "Phường Thanh Khê Đông", "Phường Thanh Khê Tây", "Phường Vĩnh Trung", "Phường Xuân Hà"],
+                "Sơn Trà": ["Phường An Hải Bắc", "Phường An Hải Đông", "Phường An Hải Tây", "Phường Mân Thái", "Phường Nại Hiên Đông", "Phường Phước Mỹ", "Phường Thọ Quang"],
+                "Ngũ Hành Sơn": ["Phường Hòa Hải", "Phường Hòa Quý", "Phường Khuê Mỹ", "Phường Mỹ An"],
+                "Liên Chiểu": ["Phường Hòa Hiệp Bắc", "Phường Hòa Hiệp Nam", "Phường Hòa Khánh Bắc", "Phường Hòa Khánh Nam", "Phường Hòa Minh"],
+                "Cẩm Lệ": ["Phường Hòa An", "Phường Hòa Phát", "Phường Hòa Thọ Đông", "Phường Hòa Thọ Tây", "Phường Hòa Xuân", "Phường Khuê Trung"],
+                "Huyện Hòa Vang": ["Xã Hòa Bắc", "Xã Hòa Châu", "Xã Hòa Khương", "Xã Hòa Liên", "Xã Hòa Nhơn", "Xã Hòa Ninh", "Xã Hòa Phong", "Xã Hòa Phú", "Xã Hòa Phước", "Xã Hòa Sơn", "Xã Hòa Tiến"],
+                "Huyện đảo Hoàng Sa": ["Thị trấn Hoàng Sa"]
+            },
+            "Quảng Nam": {
+                "Tam Kỳ": ["Phường An Mỹ", "Phường An Phú", "Phường An Sơn", "Phường An Xuân", "Phường Hòa Hương", "Phường Hòa Thuận", "Phường Phước Hòa", "Phường Tân Thạnh", "Xã Tam Ngọc", "Xã Tam Phú", "Xã Tam Thanh", "Xã Tam Thăng", "Xã Tam Phước"],
+                "Hội An": ["Phường Cẩm An", "Phường Cẩm Châu", "Phường Cẩm Nam", "Phường Cẩm Phô", "Phường Minh An", "Phường Sơn Phong", "Phường Tân An", "Phường Thanh Hà", "Xã Cẩm Hà", "Xã Cẩm Kim", "Xã Cẩm Thanh", "Xã Tân Hiệp"],
+                "Điện Bàn": ["Phường Điện An", "Phường Điện Dương", "Phường Điện Ngọc", "Phường Điện Nam Bắc", "Phường Điện Nam Đông", "Phường Điện Nam Trung", "Phường Vĩnh Điện", "Xã Điện Hòa", "Xã Điện Hồng", "Xã Điện Minh", "Xã Điện Phong", "Xã Điện Phước", "Xã Điện Phương", "Xã Điện Quang", "Xã Điện Thắng Bắc", "Xã Điện Thắng Nam", "Xã Điện Thắng Trung", "Xã Điện Tiến", "Xã Điện Trung", "Xã Điện Phước"],
+                "Duy Xuyên": ["Xã Duy Châu", "Xã Duy Hòa", "Xã Duy Hải", "Xã Duy Nghĩa", "Xã Duy Phú", "Xã Duy Phước", "Xã Duy Sơn", "Xã Duy Tân", "Xã Duy Thành", "Xã Duy Thu", "Xã Duy Trinh", "Xã Duy Trung", "Xã Duy Vinh", "Thị trấn Nam Phước"],
+                "Đại Lộc": ["Xã Đại An", "Xã Đại Chánh", "Xã Đại Cường", "Xã Đại Đồng", "Xã Đại Hiệp", "Xã Đại Hòa", "Xã Đại Hồng", "Xã Đại Hưng", "Xã Đại Lãnh", "Xã Đại Minh", "Xã Đại Nghĩa", "Xã Đại Phong", "Xã Đại Quang", "Xã Đại Sơn", "Xã Đại Tân", "Xã Đại Thắng", "Xã Đại Thạnh", "Xã Đại Thịnh", "Xã Đại Thượng", "Xã Đại Tiến", "Thị trấn Ái Nghĩa"],
+                "Quế Sơn": ["Xã Quế An", "Xã Quế Châu", "Xã Quế Hiệp", "Xã Quế Lộc", "Xã Quế Long", "Xã Quế Minh", "Xã Quế Phong", "Xã Quế Phú", "Xã Quế Trung", "Xã Quế Xuân 1", "Xã Quế Xuân 2", "Thị trấn Đông Phú", "Thị trấn Hương An"],
+                "Núi Thành": ["Xã Tam Anh Bắc", "Xã Tam Anh Nam", "Xã Tam Giang", "Xã Tam Hải", "Xã Tam Hiệp", "Xã Tam Hòa", "Xã Tam Mỹ Đông", "Xã Tam Mỹ Tây", "Xã Tam Nghĩa", "Xã Tam Quang", "Xã Tam Sơn", "Xã Tam Thạnh", "Xã Tam Tiến", "Xã Tam Trà", "Xã Tam Xuân 1", "Xã Tam Xuân 2", "Thị trấn Núi Thành"],
+                "Tiên Phước": ["Xã Tiên An", "Xã Tiên Cảnh", "Xã Tiên Châu", "Xã Tiên Hà", "Xã Tiên Hiệp", "Xã Tiên Lãnh", "Xã Tiên Lộc", "Xã Tiên Mỹ", "Xã Tiên Ngọc", "Xã Tiên Phong", "Xã Tiên Sơn", "Xã Tiên Thọ", "Thị trấn Tiên Kỳ"]
+            },
+            "Huế": {
+                "Thành phố Huế": ["Phường An Cựu", "Phường An Đông", "Phường An Hòa", "Phường An Tây", "Phường Hương Long", "Phường Hương Sơ", "Phường Kim Long", "Phường Phú Bình", "Phường Phú Cát", "Phường Phú Hiệp", "Phường Phú Hậu", "Phường Phú Hội", "Phường Phú Hòa", "Phường Phú Nhuận", "Phường Phú Thượng", "Phường Phước Vĩnh", "Phường Tây Lộc", "Phường Thuận Hòa", "Phường Thuận Lộc", "Phường Thuận Thành", "Phường Thủy Biều", "Phường Thủy Xuân", "Phường Trường An", "Phường Vĩnh Ninh", "Phường Vỹ Dạ", "Phường Xuân Phú"],
+                "Hương Thủy": ["Phường Phú Bài", "Phường Thủy Châu", "Phường Thủy Dương", "Phường Thủy Lương", "Phường Thủy Phương", "Xã Dương Hòa", "Xã Phú Sơn", "Xã Thủy Bằng", "Xã Thủy Phù", "Xã Thủy Tân", "Xã Thủy Thanh", "Xã Thủy Vân"],
+                "Hương Trà": ["Phường Hương An", "Phường Hương Chữ", "Phường Hương Hồ", "Phường Hương Vân", "Phường Hương Xuân", "Phường Tứ Hạ", "Xã Bình Thành", "Xã Bình Tiến", "Xã Bình Trung", "Xã Hải Dương", "Xã Hồng Tiến"],
+                "A Lưới": ["Xã A Đớt", "Xã A Ngo", "Xã A Roàng", "Xã Đông Sơn", "Xã Hồng Bắc", "Xã Hồng Hạ", "Xã Hồng Kim", "Xã Hồng Thái", "Xã Hồng Thủy", "Xã Hồng Trung", "Xã Hồng Vân", "Xã Hồng Quảng", "Xã Hồng Thượng", "Xã Nhâm", "Xã Bắc Sơn", "Xã Sơn Thủy"],
+                "Nam Đông": ["Xã Hương Giang", "Xã Hương Hòa", "Xã Hương Lộc", "Xã Hương Phú", "Xã Hương Sơn", "Xã Hương Xuân", "Xã Thượng Long", "Xã Thượng Lộ", "Xã Thượng Nhật", "Thị trấn Khe Tre"],
+                "Phong Điền": ["Xã Điền Hải", "Xã Điền Hòa", "Xã Điền Hương", "Xã Điền Lộc", "Xã Điền Môn", "Xã Phong An", "Xã Phong Bình", "Xã Phong Chương", "Xã Phong Hải", "Xã Phong Hiền", "Xã Phong Hòa", "Xã Phong Mỹ", "Xã Phong Sơn", "Xã Phong Thu", "Xã Phong Xuân", "Thị trấn Phong Điền"],
+                "Phú Lộc": ["Xã Giang Hải", "Xã Lộc An", "Xã Lộc Bình", "Xã Lộc Bổn", "Xã Lộc Điền", "Xã Lộc Hòa", "Xã Lộc Sơn", "Xã Lộc Thủy", "Xã Lộc Tiến", "Xã Lộc Trì", "Xã Vinh Giang", "Xã Vinh Hải", "Xã Vinh Hiền", "Xã Vinh Hưng", "Xã Vinh Mỹ", "Xã Vinh Thanh", "Thị trấn Lăng Cô", "Thị trấn Phú Lộc"],
+                "Phú Vang": ["Xã Phú An", "Xã Phú Diên", "Xã Phú Dương", "Xã Phú Hải", "Xã Phú Hồ", "Xã Phú Lương", "Xã Phú Mỹ", "Xã Phú Thanh", "Xã Phú Thuận", "Xã Phú Thượng", "Xã Phú Xuân", "Thị trấn Phú Đa", "Thị trấn Thuận An"]
+            },
+            "Hải Phòng": {
+                "Hồng Bàng": ["Phường Hoàng Văn Thụ", "Phường Hùng Vương"],
+                "Ngô Quyền": ["Phường Cầu Đất", "Phường Đằng Giang"]
+            },
+            "Cần Thơ": {
+                "Ninh Kiều": ["Phường An Cư", "Phường An Hòa"],
+                "Bình Thủy": ["Phường An Thới", "Phường Bùi Hữu Nghĩa"]
+            },
+            "An Giang": {
+                "Long Xuyên": ["Phường Mỹ Bình", "Phường Mỹ Hòa"],
+                "Châu Đốc": ["Phường Châu Phú A", "Phường Châu Phú B"]
+            },
+            "Bà Rịa - Vũng Tàu": {
+                "Bà Rịa": ["Phường Long Hương", "Phường Phước Hiệp"],
+                "Vũng Tàu": ["Phường 1", "Phường 2"]
+            },
+            "Bạc Liêu": {
+                "Thành phố Bạc Liêu": ["Phường 1", "Phường 2"],
+                "Huyện Hồng Dân": ["Xã Ninh Quới", "Xã Ninh Thạnh Lợi"]
+            },
+            "Bắc Giang": {
+                "Thành phố Bắc Giang": ["Phường Hoàng Văn Thụ", "Phường Trần Phú"],
+                "Huyện Hiệp Hòa": ["Xã Bắc Lý", "Xã Đức Thắng"]
+            },
+            "Bắc Kạn": {
+                "Thành phố Bắc Kạn": ["Phường Đức Xuân", "Phường Nguyễn Thị Minh Khai"],
+                "Huyện Ba Bể": ["Xã Cao Thượng", "Xã Khang Ninh"]
+            },
+            "Bắc Ninh": {
+                "Thành phố Bắc Ninh": ["Phường Đại Phúc", "Phường Vũ Ninh"],
+                "Huyện Gia Bình": ["Xã Đông Cứu", "Xã Quỳnh Phú"]
+            },
+            "Bến Tre": {
+                "Thành phố Bến Tre": ["Phường 1", "Phường 2"],
+                "Huyện Châu Thành": ["Xã An Hiệp", "Xã Tân Thạch"]
+            },
+            "Bình Định": {
+                "Thành phố Quy Nhơn": ["Phường Đống Đa", "Phường Ghềnh Ráng"],
+                "Huyện An Nhơn": ["Xã Nhơn Hậu", "Xã Nhơn Phúc"]
+            },
+            "Bình Dương": {
+                "Thủ Dầu Một": ["Phường Chánh Nghĩa", "Phường Hiệp An"],
+                "Dĩ An": ["Phường Dĩ An", "Phường Đông Hòa"]
+            },
+            "Bình Phước": {
+                "Thành phố Đồng Xoài": ["Phường Tân Bình", "Phường Tân Đồng"],
+                "Thị xã Bình Long": ["Phường An Lộc", "Phường Phú Thịnh"]
+            },
+            "Bình Thuận": {
+                "Thành phố Phan Thiết": ["Phường Bình Hưng", "Phường Đức Long"],
+                "Thị xã La Gi": ["Phường Bình Tân", "Phường Tân Thiện"]
+            },
+            "Cà Mau": {
+                "Thành phố Cà Mau": ["Phường 1", "Phường 2"],
+                "Huyện Đầm Dơi": ["Xã Tân Duyệt", "Xã Tân Đức"]
+            },
+            "Cao Bằng": {
+                "Thành phố Cao Bằng": ["Phường Hợp Giang", "Phường Sông Hiến"],
+                "Huyện Bảo Lạc": ["Xã Cô Ba", "Xã Hưng Đạo"]
+            },
+            "Đắk Lắk": {
+                "Thành phố Buôn Ma Thuột": ["Phường Ea Tam", "Phường Khánh Xuân"],
+                "Huyện Ea Kar": ["Xã Ea Đar", "Xã Ea Kmút"]
+            },
+            "Đắk Nông": {
+                "Thành phố Gia Nghĩa": ["Phường Nghĩa Đức", "Phường Nghĩa Tân"],
+                "Huyện Đắk Mil": ["Xã Đắk Lao", "Xã Đức Mạnh"]
+            },
+            "Điện Biên": {
+                "Thành phố Điện Biên Phủ": ["Phường Him Lam", "Phường Mường Thanh"],
+                "Thị xã Mường Lay": ["Phường Na Lay", "Xã Lay Nưa"]
+            },
+            "Đồng Nai": {
+                "Thành phố Biên Hòa": ["Phường An Bình", "Phường Hòa Bình"],
+                "Thị xã Long Khánh": ["Phường Xuân An", "Phường Xuân Bình"]
+            },
+            "Đồng Tháp": {
+                "Thành phố Cao Lãnh": ["Phường 1", "Phường 2"],
+                "Thành phố Sa Đéc": ["Phường An Hòa", "Phường Tân Quy Đông"]
+            },
+            "Gia Lai": {
+                "Thành phố Pleiku": ["Phường Diên Hồng", "Phường Hoa Lư"],
+                "Thị xã An Khê": ["Phường An Bình", "Phường Tây Sơn"]
+            },
+            "Hà Giang": {
+                "Thành phố Hà Giang": ["Phường Minh Khai", "Phường Trần Phú"],
+                "Huyện Đồng Văn": ["Xã Đồng Văn", "Xã Lũng Cú"]
+            },
+            "Hà Nam": {
+                "Thành phố Phủ Lý": ["Phường Hai Bà Trưng", "Phường Quang Trung"],
+                "Thị xã Duy Tiên": ["Phường Đồng Văn", "Xã Tiên Nội"]
+            },
+            "Hà Tĩnh": {
+                "Thành phố Hà Tĩnh": ["Phường Bắc Hà", "Phường Nguyễn Du"],
+                "Thị xã Hồng Lĩnh": ["Phường Bắc Hồng", "Phường Nam Hồng"]
+            },
+            "Hải Dương": {
+                "Thành phố Hải Dương": ["Phường Bình Hàn", "Phường Ngọc Châu"],
+                "Thị xã Chí Linh": ["Phường Cộng Hòa", "Phường Sao Đỏ"]
+            },
+            "Hậu Giang": {
+                "Thành phố Vị Thanh": ["Phường 1", "Phường 3"],
+                "Thị xã Ngã Bảy": ["Phường Ngã Bảy", "Phường Hiệp Thành"]
+            },
+            "Hòa Bình": {
+                "Thành phố Hòa Bình": ["Phường Chăm Mát", "Phường Thái Bình"],
+                "Huyện Mai Châu": ["Xã Chiềng Châu", "Xã Mai Hạ"]
+            },
+            "Hưng Yên": {
+                "Thành phố Hưng Yên": ["Phường Hiến Nam", "Phường Lê Lợi"],
+                "Huyện Văn Lâm": ["Xã Chỉ Đạo", "Xã Đình Dù"]
+            },
+            "Khánh Hòa": {
+                "Thành phố Nha Trang": ["Phường Lộc Thọ", "Phường Phước Hải"],
+                "Thành phố Cam Ranh": ["Phường Cam Lợi", "Phường Cam Linh"]
+            },
+            "Kiên Giang": {
+                "Thành phố Rạch Giá": ["Phường An Hòa", "Phường Vĩnh Bảo"],
+                "Thành phố Hà Tiên": ["Phường Bình San", "Phường Đông Hồ"]
+            },
+            "Kon Tum": {
+                "Thành phố Kon Tum": ["Phường Duy Tân", "Phường Trường Chinh"],
+                "Huyện Đắk Hà": ["Xã Đắk Hring", "Xã Đắk Pxi"]
+            },
+            "Lai Châu": {
+                "Thành phố Lai Châu": ["Phường Đoàn Kết", "Phường Quyết Thắng"],
+                "Huyện Mường Tè": ["Xã Bum Nưa", "Xã Bum Tở"]
+            },
+            "Lâm Đồng": {
+                "Thành phố Đà Lạt": ["Phường 1", "Phường 2"],
+                "Thành phố Bảo Lộc": ["Phường 1", "Phường 2"]
+            },
+            "Lạng Sơn": {
+                "Thành phố Lạng Sơn": ["Phường Chi Lăng", "Phường Vĩnh Trại"],
+                "Huyện Cao Lộc": ["Xã Bảo Lâm", "Xã Bình Trung"]
+            },
+            "Lào Cai": {
+                "Thành phố Lào Cai": ["Phường Bắc Cường", "Phường Bình Minh"],
+                "Thị xã Sa Pa": ["Phường Sa Pa", "Xã Sa Pả"]
+            },
+            "Long An": {
+                "Thành phố Tân An": ["Phường 1", "Phường 2"],
+                "Thị xã Kiến Tường": ["Phường 1", "Phường 2"]
+            },
+            "Nam Định": {
+                "Thành phố Nam Định": ["Phường Bà Triệu", "Phường Cửa Bắc"],
+                "Huyện Giao Thủy": ["Xã Giao An", "Xã Giao Thiện"]
+            },
+            "Nghệ An": {
+                "Thành phố Vinh": ["Phường Bến Thủy", "Phường Hồng Sơn"],
+                "Thị xã Cửa Lò": ["Phường Nghi Hòa", "Phường Nghi Hải"]
+            },
+            "Ninh Bình": {
+                "Thành phố Ninh Bình": ["Phường Bích Đào", "Phường Nam Bình"],
+                "Thành phố Tam Điệp": ["Phường Bắc Sơn", "Phường Trung Sơn"]
+            },
+            "Ninh Thuận": {
+                "Thành phố Phan Rang-Tháp Chàm": ["Phường Đô Vinh", "Phường Kinh Dinh"],
+                "Huyện Ninh Hải": ["Xã Hộ Hải", "Xã Thanh Hải"]
+            },
+            "Phú Thọ": {
+                "Thành phố Việt Trì": ["Phường Gia Cẩm", "Phường Tiên Cát"],
+                "Thị xã Phú Thọ": ["Phường Hùng Vương", "Phường Phong Châu"]
+            },
+            "Phú Yên": {
+                "Thành phố Tuy Hòa": ["Phường 1", "Phường 2"],
+                "Thị xã Sông Cầu": ["Phường Xuân Đài", "Phường Xuân Yên"]
+            },
+            "Quảng Bình": {
+                "Thành phố Đồng Hới": ["Phường Bắc Lý", "Phường Đồng Hải"],
+                "Thị xã Ba Đồn": ["Phường Ba Đồn", "Phường Quảng Thọ"]
+            },
+            "Quảng Ngãi": {
+                "Thành phố Quảng Ngãi": ["Phường Chánh Lộ", "Phường Nghĩa Chánh"],
+                "Thị xã Đức Phổ": ["Phường Nguyễn Nghiêm", "Phường Phổ Hòa"]
+            },
+            "Quảng Ninh": {
+                "Thành phố Hạ Long": ["Phường Bãi Cháy", "Phường Hồng Hải"],
+                "Thành phố Móng Cái": ["Phường Ka Long", "Phường Ninh Dương"]
+            },
+            "Quảng Trị": {
+                "Thành phố Đông Hà": ["Phường 1", "Phường 2"],
+                "Thị xã Quảng Trị": ["Phường 1", "Phường An Đôn"]
+            },
+            "Sóc Trăng": {
+                "Thành phố Sóc Trăng": ["Phường 1", "Phường 2"],
+                "Thị xã Vĩnh Châu": ["Phường 1", "Phường 2"]
+            },
+            "Sơn La": {
+                "Thành phố Sơn La": ["Phường Chiềng An", "Phường Chiềng Cơi"],
+                "Thị xã Mộc Châu": ["Phường 1", "Phường 2"]
+            },
+            "Tây Ninh": {
+                "Thành phố Tây Ninh": ["Phường 1", "Phường 2"],
+                "Thị xã Hòa Thành": ["Phường Hiệp Tân", "Phường Long Hoa"]
+            },
+            "Thái Bình": {
+                "Thành phố Thái Bình": ["Phường Bồ Xuyên", "Phường Đề Thám"],
+                "Thị xã Tiền Hải": ["Phường Đông Hải", "Phường Nam Hải"]
+            },
+            "Thái Nguyên": {
+                "Thành phố Thái Nguyên": ["Phường Cam Giá", "Phường Gia Sàng"],
+                "Thị xã Sông Công": ["Phường Bách Quang", "Phường Lương Châu"]
+            },
+            "Thanh Hóa": {
+                "Thành phố Thanh Hóa": ["Phường An Hưng", "Phường Ba Đình"],
+                "Thị xã Bỉm Sơn": ["Phường Bắc Sơn", "Phường Lam Sơn"]
+            },
+            "Tiền Giang": {
+                "Thành phố Mỹ Tho": ["Phường 1", "Phường 2"],
+                "Thị xã Gò Công": ["Phường 1", "Phường 2"]
+            },
+            "Trà Vinh": {
+                "Thành phố Trà Vinh": ["Phường 1", "Phường 2"],
+                "Thị xã Duyên Hải": ["Phường 1", "Phường 2"]
+            },
+            "Tuyên Quang": {
+                "Thành phố Tuyên Quang": ["Phường An Tường", "Phường Tân Hà"],
+                "Thị xã Na Hang": ["Xã Đà Vị", "Xã Khâu Tinh"]
+            },
+            "Vĩnh Long": {
+                "Thành phố Vĩnh Long": ["Phường 1", "Phường 2"],
+                "Thị xã Bình Minh": ["Phường Cái Vồn", "Phường Thành Phước"]
+            },
+            "Vĩnh Phúc": {
+                "Thành phố Vĩnh Yên": ["Phường Đống Đa", "Phường Khai Quang"],
+                "Thành phố Phúc Yên": ["Phường Hùng Vương", "Phường Trưng Nhị"]
+            },
+            "Yên Bái": {
+                "Thành phố Yên Bái": ["Phường Đồng Tâm", "Phường Nguyễn Thái Học"],
+                "Thị xã Nghĩa Lộ": ["Phường Cầu Thia", "Phường Trung Tâm"]
             }
         };
+
 
         // Populate cities
         for (var city in cities) {
