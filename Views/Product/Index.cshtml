@@ -128,9 +128,9 @@
                         case "newest":
                             products = products.OrderByDescending(x => x.CreatedDate);
                             break;
-                        //case "bestselling":
-                        //    products = products.OrderByDescending(x => x.QuantitySold); // Giả sử có trường Sales
-                        //    break;
+                        case "bestselling":
+                            products = products.OrderByDescending(x => x.QuantitySold); 
+                            break;
                         case "price_low_high":
                             products = products.OrderBy(x => x.Price);
                             break;
@@ -138,7 +138,7 @@
                             products = products.OrderByDescending(x => x.Price);
                             break;
                         default:
-                            products = products.OrderBy(x => Guid.NewGuid()); // Random using GUID to simulate randomness
+                            products = products.OrderBy(x => Guid.NewGuid()); 
                             break;
                     }
 
@@ -160,8 +160,19 @@
                         {
                             <h3 class="random-cate-heading mb-0">Sản phẩm nổi bật</h3>
                         }
+                        @*<div class="sort-options justify-content-start">
+                            <select id="sortOrder" onchange="location = this.value;">
+                                <option value="?sortOrder=random&search=@searchQuery" selected>Liên quan</option>
+                                <option value="?sortOrder=newest&search=@searchQuery">Mới nhất</option>
+                                <option value="?sortOrder=bestselling&search=@searchQuery">Bán chạy</option>
+                                <option value="?sortOrder=price_low_high&search=@searchQuery">Giá tăng dần</option>
+                                <option value="?sortOrder=price_high_low&search=@searchQuery">Giá giảm dần</option>
+                            </select>
+                        </div>*@
+
+
                         <div class="sort-options">
-                            <a href="?sortOrder=random&search=@searchQuery" class="sort-option active" data-sort="random">Liên quan</a>
+                            <a href="?sortOrder=random&search=@searchQuery" class="sort-option" data-sort="random">Liên quan</a>
                             <a href="?sortOrder=newest&search=@searchQuery" class="sort-option" data-sort="newest">Mới nhất</a>
                             <a href="?sortOrder=bestselling&search=@searchQuery" class="sort-option" data-sort="bestselling">Bán chạy</a>
                             <a href="?sortOrder=price_low_high&search=@searchQuery" class="sort-option" data-sort="price_low_high">Giá tăng dần</a>

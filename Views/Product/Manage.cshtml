@@ -33,14 +33,14 @@
             <ul class="shop-sidebar-order">
                 <i class="fa-solid fa-receipt"></i>
                 Quản lí đơn hàng
-                <li><a href="#">Tất cả</a></li>
-                <li><a href="#">Đã hủy</a></li>
+                <li><a href="/Shop/Order">Tất cả</a></li>
+                <li><a href="/Shop/Order">Đã hủy</a></li>
             </ul>
             <ul class="shop-sidebar-product">
                 <i class="fa-solid fa-box"></i>
                 Quản lí sản phẩm
                 <li><a href="#" class="active">Tất cả</a></li>
-                <li><a href="/Product/Create">Thêm sản phẩm</a></li>
+                <li><a href="/Product/Create/@ViewBag.ShopID">Thêm sản phẩm</a></li>
             </ul>
             <ul class="shop-sidebar-myshop">
                 <i class="fa-solid fa-shop"></i>
@@ -79,10 +79,11 @@
                     </div>
                     <button>
                         <i class="fa-solid fa-plus"></i>
-                        <a href="@Url.Action("Create", "Product")">Thêm 1 sản phẩm mới</a>
+                        <a href="@Url.Action("Create", "Product", new { id = @ViewBag.ShopID })">Thêm 1 sản phẩm mới</a>
                     </button>
                 </div>
                 <div class="shop-product-detail">
+                    @Html.AntiForgeryToken()
                     <table>
                         <thead>
                             <tr>
@@ -108,9 +109,16 @@
                                     <td class="text-center">@product.tb_Brand.Name</td>
                                     <td class="text-center">@String.Format("{0:N0} VND", product.Price)</td>
                                     <td class="text-center">@product.Quantity</td>
+                                    @*<td class="text-center">
+                                        <button onclick="location.href='@Url.Action("Edit", "Product", new { id = product.ProductID })'">Sửa</button>
+                                        <button onclick="if(confirm('Bạn có chắc chắn muốn xoá sản phẩm này?')) location.href='@Url.Action("Delete", "Product", new { id = product.ProductID })'" formmethod="post">Xoá</button>
+                                    </td>*@
                                     <td class="text-center">
                                         <button onclick="location.href='@Url.Action("Edit", "Product", new { id = product.ProductID })'">Sửa</button>
-                                        <button onclick="if(confirm('Bạn có chắc chắn muốn xoá sản phẩm này?')) location.href='@Url.Action("Delete", "Product", new { id = product.ProductID })'">Xoá</button>
+                                        <form action="@Url.Action("Delete", "Product", new { id = product.ProductID })" method="post" style="display:inline;">
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" onclick="return confirm('Bạn có chắc chắn muốn xoá sản phẩm này?')">Xoá</button>
+                                        </form>
                                     </td>
                                 </tr>
                             }
@@ -139,3 +147,28 @@
         }
     });
 </script>
+
+@*<script>
+    function deleteProduct(deleteUrl) {
+        if (confirm('Bạn có chắc chắn muốn xoá sản phẩm này?')) {
+            const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+            fetch(deleteUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': token // Thêm token chống giả mạo (CSRF)
+                }
+            }).then(response => {
+                if (response.ok) {
+                    alert('Xóa sản phẩm thành công');
+                    location.reload(); // Tải lại trang sau khi xóa thành công
+                } else {
+                    alert('Có lỗi xảy ra khi xóa sản phẩm');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('Có lỗi xảy ra khi xóa sản phẩm');
+            });
+        }
+    }
+</script>*@

@@ -11,7 +11,7 @@
             <h2 class="cart-header-title">Giỏ hàng</h2>
             <ul class="cart-header-list">
                 <li class="cart-header-item">
-                    <input type="checkbox" class="cart-header-item-checkbox">
+                    <input type="checkbox" id="select-all-checkbox" class="cart-header-item-checkbox">
                 </li>
                 <li class="cart-header-item">Hình ảnh</li>
                 <li class="cart-header-item">Tên sản phẩm</li>
@@ -26,7 +26,7 @@
             {
                 <ul class="cart-content-list">
                     <li class="cart-content-item">
-                        <input type="checkbox" class="cart-content-item-checkbox">
+                        <input type="checkbox" class="cart-content-item-checkbox" data-product-id="@item.ProductID">
                     </li>
                     <li class="cart-content-item">
                         <img src="~/images/@item.Image" class="cart-content-item-img" />
@@ -34,14 +34,6 @@
                     <li class="cart-content-item">
                         <span>@item.Name</span>
                     </li>
-                    @*<li class="cart-content-item">
-                            @using (Html.BeginForm("Update", "Cart", FormMethod.Post))
-                            {
-                                <input type="number" name="quantity" value="@item.Quantity" min="1" style="width: 60px;" />
-                                <input type="hidden" name="productId" value="@item.ProductID" />
-                                <input type="submit" value="Update" class="btn btn-warning" />
-                            }
-                        </li>*@
                     <li class="cart-content-item">
                         <button class="detail-quantity-prepend" data-product-id="@item.ProductID">
                             <i class="fas fa-minus"></i>
@@ -71,7 +63,7 @@
         <div class="cart-bottom">
             <ul class="cart-bottom-list-left">
                 <li class="cart-bottom-item">
-                    <input type="checkbox" class="cart-bottom-item-checkbox">
+                    <input type="checkbox" id="select-all-bottom-checkbox" class="cart-bottom-item-checkbox">
                 </li>
                 <li class="cart-bottom-item">Chọn tất cả (@ViewBag.TotalQuantity)</li>
                 <li class="cart-bottom-item disable-cursor">
@@ -88,7 +80,7 @@
                 }
                 <li class="cart-bottom-item">@totalPrice.ToString("N0") VNĐ</li>
                 <li class="cart-bottom-item">
-                    <button type="button" class="cart-bottom-button disable-cursor">Mua hàng</button>
+                    <button type="button" id="checkout-button" class="cart-bottom-button disable-cursor" disabled>Mua hàng</button>
                 </li>
             </ul>
         </div>
@@ -99,20 +91,17 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".detail-quantity-prepend").click(function () {
+            // Handle quantity update
+            $(".detail-quantity-prepend, .detail-quantity-append").click(function () {
+                var isPrepend = $(this).hasClass("detail-quantity-prepend");
                 var productId = $(this).data("product-id");
                 var quantityInput = $(this).siblings('input[name="quantity"]');
                 var currentQuantity = parseInt(quantityInput.val());
-                if (currentQuantity > 1) {
-                    updateCartQuantity(productId, currentQuantity - 1, quantityInput);
-                }
-            });
+                var newQuantity = isPrepend ? currentQuantity - 1 : currentQuantity + 1;
 
-            $(".detail-quantity-append").click(function () {
-                var productId = $(this).data("product-id");
-                var quantityInput = $(this).siblings('input[name="quantity"]');
-                var currentQuantity = parseInt(quantityInput.val());
-                updateCartQuantity(productId, currentQuantity + 1, quantityInput);
+                if (newQuantity > 0) {
+                    updateCartQuantity(productId, newQuantity, quantityInput);
+                }
             });
 
             function updateCartQuantity(productId, newQuantity, quantityInput) {
@@ -125,14 +114,59 @@
                     },
                     success: function (result) {
                         quantityInput.val(newQuantity);
-                        // Optionally, update other parts of the cart like total quantity and price
-                        location.reload(); // Uncomment if you want to reload the page
+                        location.reload(); // Optionally, update other parts of the cart like total quantity and price
                     },
                     error: function (xhr, status, error) {
                         console.error("Error updating cart quantity: " + error);
                     }
                 });
             }
+
+            // Handle checkbox selection
+            $("#select-all-checkbox, #select-all-bottom-checkbox").change(function () {
+                var isChecked = $(this).is(':checked');
+                $(".cart-content-item-checkbox").prop('checked', isChecked);
+                updateCheckoutButtonState();
+            });
+
+            $(".cart-content-item-checkbox").change(function () {
+                updateCheckoutButtonState();
+            });
+
+            function updateCheckoutButtonState() {
+                var anyChecked = $(".cart-content-item-checkbox:checked").length > 0;
+                var checkoutButton = $("#checkout-button");
+
+                if (anyChecked) {
+                    checkoutButton.prop("disabled", false).removeClass("disable-cursor");
+                } else {
+                    checkoutButton.prop("disabled", true).addClass("disable-cursor");
+                }
+            }
+
+            // Handle checkout button click
+            $("#checkout-button").click(function () {
+                var selectedProductIds = $(".cart-content-item-checkbox:checked").map(function () {
+                    return $(this).data("product-id");
+                }).get();
+
+                if (selectedProductIds.length > 0) {
+                    window.location.href = '@Url.Action("Checkout", "Cart")' + '?productIds=' + selectedProductIds.join(',');
+                }
+            });
+
+            // Sync the state of "Select All" checkboxes
+            function syncSelectAllCheckboxes() {
+                var allChecked = $(".cart-content-item-checkbox").length === $(".cart-content-item-checkbox:checked").length;
+                $("#select-all-checkbox, #select-all-bottom-checkbox").prop('checked', allChecked);
+            }
+
+            $(".cart-content-item-checkbox").change(function () {
+                syncSelectAllCheckboxes();
+            });
+
+            // Initial sync
+            syncSelectAllCheckboxes();
         });
     </script>
 }

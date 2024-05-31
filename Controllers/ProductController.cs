@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Drawing.Printing;
 using System.Dynamic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
@@ -147,6 +148,7 @@ namespace ThuongMaiDienTu.Controllers
 
             ViewBag.ShopAvatar = shop.Avatar;
             ViewBag.ShopName = shop.Name;
+            ViewBag.ShopID = shop.ShopID;
 
             return View(model);
         }
@@ -206,43 +208,97 @@ namespace ThuongMaiDienTu.Controllers
 
             ViewBag.ShopAvatar = shop.Avatar;
             ViewBag.ShopName = shop.Name;
-
+            ViewBag.ShopID = shop.ShopID;
+        
             return View(model);
         }
 
 
-        // GET: Product/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            //int currentShopID = (int)Session["CurrentShopID"];
+
+            var shop = db.tb_Shop.Find(id);
+            if (shop == null)
+            {
+                return HttpNotFound("Shop không tồn tại.");
+            }
+
+            ViewBag.ShopAvatar = shop.Avatar;
+            ViewBag.ShopName = shop.Name;
+
             ViewBag.BrandID = new SelectList(db.tb_Brand, "BrandID", "Name");
             ViewBag.CateID = new SelectList(db.tb_ProductCategory, "CateID", "Name");
-            ViewBag.ShopID = new SelectList(db.tb_Shop, "ShopID", "Name");
-            ViewBag.SupplierID = new SelectList(db.tb_Supplier, "SupplierID", "Name");
+            ViewBag.ShopID = id;
+
             return View();
         }
 
-        // POST: Product/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,Name,Image,Price,PromotionPrice,Quantity,Description,Detail,CateID,ShopID,BrandID,SupplierID,CreatedDate")] tb_Product tb_Product)
+        public ActionResult Create(int shopID, [Bind(Include = "Name,Price,PromotionPrice,Quantity,Description,Detail,CateID,BrandID")] tb_Product tb_Product, HttpPostedFileBase uploadImage, IEnumerable<HttpPostedFileBase> uploadSubImages)
         {
             if (ModelState.IsValid)
             {
+                tb_Product.ShopID = shopID;
+
+                // Xử lý ảnh bìa
+                if (uploadImage != null && uploadImage.ContentLength > 0)
+                {
+                    string uploadDir = Server.MapPath("~/uploads");
+                    if (!Directory.Exists(uploadDir))
+                    {
+                        Directory.CreateDirectory(uploadDir);
+                    }
+
+                    string path = Path.Combine(uploadDir, Path.GetFileName(uploadImage.FileName));
+                    uploadImage.SaveAs(path);
+                    tb_Product.Image = Path.GetFileName(uploadImage.FileName);
+                }
+
                 db.tb_Product.Add(tb_Product);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                // Xử lý ảnh phụ
+                if (uploadSubImages != null)
+                {
+                    foreach (HttpPostedFileBase file in uploadSubImages)
+                    {
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            string uploadDir = Server.MapPath("~/uploads");
+                            if (!Directory.Exists(uploadDir))
+                            {
+                                Directory.CreateDirectory(uploadDir);
+                            }
+
+                            string path2 = Path.Combine(uploadDir, Path.GetFileName(file.FileName));
+                            file.SaveAs(path2);
+                            tb_ListImage productImage = new tb_ListImage
+                            {
+                                ProductID = tb_Product.ProductID,
+                                SRC = Path.GetFileName(file.FileName)
+                            };
+                            db.tb_ListImage.Add(productImage);
+                        }
+                    }
+                    db.SaveChanges();
+                }
+
+                return RedirectToAction("Manage");
             }
 
             ViewBag.BrandID = new SelectList(db.tb_Brand, "BrandID", "Name", tb_Product.BrandID);
             ViewBag.CateID = new SelectList(db.tb_ProductCategory, "CateID", "Name", tb_Product.CateID);
-            ViewBag.ShopID = new SelectList(db.tb_Shop, "ShopID", "Name", tb_Product.ShopID);
-            ViewBag.SupplierID = new SelectList(db.tb_Supplier, "SupplierID", "Name", tb_Product.SupplierID);
+            ViewBag.ShopID = shopID;
             return View(tb_Product);
         }
 
-        // GET: Product/Edit/5
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -257,54 +313,122 @@ namespace ThuongMaiDienTu.Controllers
             ViewBag.BrandID = new SelectList(db.tb_Brand, "BrandID", "Name", tb_Product.BrandID);
             ViewBag.CateID = new SelectList(db.tb_ProductCategory, "CateID", "Name", tb_Product.CateID);
             ViewBag.ShopID = new SelectList(db.tb_Shop, "ShopID", "Name", tb_Product.ShopID);
-            ViewBag.SupplierID = new SelectList(db.tb_Supplier, "SupplierID", "Name", tb_Product.SupplierID);
+
+            var shop = db.tb_Shop.Find(tb_Product.ShopID);
+            if (shop != null)
+            {
+                ViewBag.ShopAvatar = shop.Avatar;
+                ViewBag.ShopName = shop.Name;
+            }
+
+            ViewBag.ListImages = db.tb_ListImage.Where(i => i.ProductID == id).ToList();
+
             return View(tb_Product);
         }
 
-        // POST: Product/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,Name,Image,Price,PromotionPrice,Quantity,Description,Detail,CateID,ShopID,BrandID,SupplierID,CreatedDate")] tb_Product tb_Product)
+        public ActionResult Edit([Bind(Include = "ProductID,Name,Price,PromotionPrice,Quantity,Description,Detail,CateID,BrandID")] tb_Product tb_Product, HttpPostedFileBase uploadImage, IEnumerable<HttpPostedFileBase> uploadSubImages)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tb_Product).State = EntityState.Modified;
+                var existingProduct = db.tb_Product.Find(tb_Product.ProductID);
+
+                if (existingProduct == null)
+                {
+                    return HttpNotFound();
+                }
+
+                existingProduct.Name = tb_Product.Name;
+                existingProduct.Price = tb_Product.Price;
+                existingProduct.PromotionPrice = tb_Product.PromotionPrice;
+                existingProduct.Quantity = tb_Product.Quantity;
+                existingProduct.Description = tb_Product.Description;
+                existingProduct.Detail = tb_Product.Detail;
+                existingProduct.CateID = tb_Product.CateID;
+                existingProduct.BrandID = tb_Product.BrandID;
+
+                // Xử lý ảnh bìa
+                if (uploadImage != null && uploadImage.ContentLength > 0)
+                {
+                    string uploadDir = Server.MapPath("~/uploads");
+                    if (!Directory.Exists(uploadDir))
+                    {
+                        Directory.CreateDirectory(uploadDir);
+                    }
+
+                    string path = Path.Combine(uploadDir, Path.GetFileName(uploadImage.FileName));
+                    uploadImage.SaveAs(path);
+                    existingProduct.Image = Path.GetFileName(uploadImage.FileName);
+                }
+
+                db.Entry(existingProduct).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                // Xử lý ảnh phụ
+                if (uploadSubImages != null)
+                {
+                    var existingImages = db.tb_ListImage.Where(img => img.ProductID == tb_Product.ProductID).ToList();
+                    foreach (var img in existingImages)
+                    {
+                        db.tb_ListImage.Remove(img);
+                    }
+                    db.SaveChanges();
+
+                    foreach (HttpPostedFileBase file in uploadSubImages)
+                    {
+                        if (file != null && file.ContentLength > 0)
+                        {
+                            string uploadDir = Server.MapPath("~/uploads");
+                            if (!Directory.Exists(uploadDir))
+                            {
+                                Directory.CreateDirectory(uploadDir);
+                            }
+
+                            string path2 = Path.Combine(uploadDir, Path.GetFileName(file.FileName));
+                            file.SaveAs(path2);
+                            tb_ListImage productImage = new tb_ListImage
+                            {
+                                ProductID = tb_Product.ProductID,
+                                SRC = Path.GetFileName(file.FileName)
+                            };
+                            db.tb_ListImage.Add(productImage);
+                        }
+                    }
+                    db.SaveChanges();
+                }
+
+                return RedirectToAction("Manage");
             }
+
             ViewBag.BrandID = new SelectList(db.tb_Brand, "BrandID", "Name", tb_Product.BrandID);
             ViewBag.CateID = new SelectList(db.tb_ProductCategory, "CateID", "Name", tb_Product.CateID);
             ViewBag.ShopID = new SelectList(db.tb_Shop, "ShopID", "Name", tb_Product.ShopID);
-            ViewBag.SupplierID = new SelectList(db.tb_Supplier, "SupplierID", "Name", tb_Product.SupplierID);
             return View(tb_Product);
         }
 
-        // GET: Product/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            tb_Product tb_Product = db.tb_Product.Find(id);
-            if (tb_Product == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tb_Product);
-        }
 
-        // POST: Product/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {
-            tb_Product tb_Product = db.tb_Product.Find(id);
-            db.tb_Product.Remove(tb_Product);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                tb_Product tb_Product = db.tb_Product.Find(id);
+                if (tb_Product == null)
+                {
+                    return HttpNotFound();
+                }
+                db.tb_Product.Remove(tb_Product);
+                db.SaveChanges();
+                return RedirectToAction("Manage");
+            }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi
+                System.Diagnostics.Debug.WriteLine("Error deleting product: " + ex.Message);
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError); // Trả về trạng thái lỗi 500
+            }
         }
 
         protected override void Dispose(bool disposing)
